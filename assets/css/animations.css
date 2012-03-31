@@ -1,0 +1,145 @@
+/* ************************************************
+CSS3 MOBILE ANIMATIONS
+Author: Gianluca Buoncompagni - zodiak active
+************************************************* */
+
+/* Class definitions
+====================================================== */
+/* Fade  ---------------------------- */
+.fade.in {-webkit-animation-name: fadeIn;}
+.fade.out {-webkit-animation-name: fadeOut;}
+/* Pop ---------------------------- */
+.anim.pop.in        {-webkit-animation-name: popIn;}
+.anim.pop.out       {-webkit-animation-name: popOut;}
+/* Slide Left --------------------- */
+.anim.slideleft.in  {-webkit-animation-name: slideLeftIn;}
+.anim.slideleft.out {-webkit-animation-name: slideLeftOut;}
+/* Slide Right -------------------- */
+.anim.slideright.in {-webkit-animation-name: slideRightIn;}
+.anim.slideright.out{-webkit-animation-name: slideRightOut;}
+/* Slide Up ----------------------- */
+.anim.slideup.in    {-webkit-animation-name: slideUpIn;}
+.anim.slideup.out   {-webkit-animation-name: slideUpOut;}
+/* Slide Down --------------------- */
+.anim.slidedown.in  {-webkit-animation-name: slideDownIn;}
+.anim.slidedown.out {-webkit-animation-name: slideDownOut;}
+/* Flip Left ---------------------- */
+.anim.flipleft      {-webkit-backface-visibility: hidden;}
+.anim.flipleft.in   {-webkit-animation-name: flipLeftIn;}
+.anim.flipleft.out  {-webkit-animation-name: flipLeftOut;}
+/* Flip Right --------------------- */
+.anim.flipright     {-webkit-backface-visibility: hidden;}
+.anim.flipright.in  {-webkit-animation-name: flipRightIn;}
+.anim.flipright.out {-webkit-animation-name: flipRightOut;}
+/* Swap --------------------------- */
+.anim.swapleft, 
+.anim.swapright{
+   -webkit-animation-duration: .7s;
+   -webkit-transform: perspective(800);
+   -webkit-animation-timing-function: ease-out;}
+.anim.swapleft.in    {-webkit-animation-name: swapLeftIn;}
+.anim.swapleft.out   {-webkit-animation-name: swapLeftOut;}
+.anim.swapright.in   {-webkit-animation-name: swapRightIn;}
+.anim.swapright.out  {-webkit-animation-name: swapRightOut;}
+/* In - Out  ---------------------------- */
+.in, 
+.out {
+   -webkit-animation-duration: 300ms;
+  /* -webkit-animation-fill-mode: forwards; */
+   -webkit-animation-timing-function: ease-in-out;
+   /* -webkit-transition-delay: 1ms; */
+}
+
+
+/* Animations
+====================================================== */
+@-webkit-keyframes move {
+   0% {background-position: 0 0; }
+	100% {background-position: 10px 10px; }
+}
+
+@-webkit-keyframes fadeIn {    
+   from {opacity: 0;}     
+   to {opacity: 1;}
+}
+@-webkit-keyframes fadeOut {    
+   from {opacity: 1;}     
+   to {opacity: 0;}   
+}
+
+@-webkit-keyframes popIn {    
+   0% {-webkit-transform: scale(.2); opacity: 0;}     
+   100% {-webkit-transform: scale(1); opacity: 1;}      
+   }   
+@-webkit-keyframes popOut {    
+   0% {-webkit-transform: scale(1); opacity: 1;}     
+   100% {-webkit-transform: scale(.2); opacity: 0;}
+}
+@-webkit-keyframes slideLeftIn {
+    0% {-webkit-transform: translate3d(100%, 0, 0); opacity:1} 
+    100% {-webkit-transform: translate3d(0, 0, 0);  opacity:1}
+   }
+@-webkit-keyframes slideLeftOut {
+    0% {-webkit-transform: translate3d(0, 0, 0);  opacity:1} 
+    100% {-webkit-transform: translate3d(-100%, 0, 0);  opacity:1}
+   }
+@-webkit-keyframes slideRightIn {
+    0% {-webkit-transform: translate3d(-100%, 0, 0);  opacity:1} 
+    100% {-webkit-transform: translate3d(0, 0, 0);  opacity:1}
+   }
+@-webkit-keyframes slideRightOut {
+    0% {-webkit-transform: translate3d(0, 0, 0);  opacity:1} 
+    100% {-webkit-transform: translate3d(100%, 0, 0);  opacity:1}
+}
+@-webkit-keyframes slideUpIn {
+    0% {-webkit-transform: translate3d(0, 100%, 0);  opacity:1} 
+    100% {-webkit-transform: translate3d(0, 0, 0);  opacity:1}
+}
+@-webkit-keyframes slideUpOut {
+    0% {-webkit-transform: translate3d(0, 0, 0);  opacity:1} 
+    100% {-webkit-transform: translate3d(0, -100%, 0);  opacity:1}
+}
+@-webkit-keyframes slideDownIn {
+    0% {-webkit-transform: translate3d(0, -100%, 0); opacity:1} 
+    100% {-webkit-transform: translate3d(0, 0, 0); opacity:1}
+}
+@-webkit-keyframes slideDownOut {
+    0% {-webkit-transform: translate3d(0, 0, 0);  opacity:1} 
+    100% {-webkit-transform: translate3d(0, 100%, 0);  opacity:1}
+}
+@-webkit-keyframes flipLeftIn {
+    0% {-webkit-transform: rotateY(-180deg) scale(.8); opacity:1;} 
+    100% {-webkit-transform: rotateY(0deg) scale(1); opacity:1;}
+}
+@-webkit-keyframes flipLeftOut {
+    0% {-webkit-transform: rotateY(0deg) scale(1); opacity:1;} 
+    100% {-webkit-transform: rotateY(180deg) scale(.8); opacity:1;}
+}
+@-webkit-keyframes flipRightIn {
+    0% {-webkit-transform: rotateY(180deg) scale(.8); opacity:1;} 
+    100% {-webkit-transform: rotateY(0deg) scale(1);  opacity:1;}
+}
+@-webkit-keyframes flipRightOut {
+    0% {-webkit-transform: rotateY(0deg) scale(1);  opacity:1;} 
+    100% {-webkit-transform: rotateY(-180deg) scale(.8);  opacity:1;}
+}
+@-webkit-keyframes swapRightIn {
+    0% {-webkit-transform: translate3d(0px, 0px, -800px) rotateY(70deg); opacity:0;}
+    35% {-webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg); opacity:1;}
+    100% {-webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity:1;}
+}
+@-webkit-keyframes swapRightOut {
+    0% {-webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity:1;}
+    35% {-webkit-transform:  translate3d(180px, 0px, -400px) rotateY(-20deg); opacity:.5;}
+    100% {-webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg); opacity:0;}
+}
+@-webkit-keyframes swapLeftIn {
+    0% {-webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg); opacity:0;}
+    35% {-webkit-transform: translate3d(180px, 0px, -400px) rotateY(-20deg); opacity:1;}
+    100% {-webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity:1;}
+}
+@-webkit-keyframes swapLeftOut {
+    0% {-webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity:1;}
+    35% {-webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg); opacity:.5;}
+    100% {-webkit-transform:  translate3d(0px, 0px, -800px) rotateY(70deg); opacity:0;}
+}

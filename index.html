@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tumblr Mobile Explorer</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-startup-image" href="assets/gfx/splash.png" /> 
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />  
+	<link rel="stylesheet" type="text/css" href="assets/css/app.css">	
+	<link rel="stylesheet" type="text/css" href="assets/css/animations.css" >	
+	<script src="assets/js/require.js"></script>
+	<link rel="apple-touch-icon" href="touch-icon.png" />	
+</head>
+<body>
+	<div id="mainApp">	  
+	   <!-- home view ::::::::::::::::::::::::::: -->
+	   <div id="home" class="current view">
+	      <div class="content" id="homeContent">
+   	      <div id="logo">
+   	      	<h1><span id="t">Tumblr</span><span id="m">Mobile</span><span id="e">Explorer</span></h1>	
+   	      </div>
+   	      <form action="#/" method="post" id="inputId" name="searchForm" class="searchForm">
+   				<input type="text" name="tid" id="tid" value="" placeholder="Tumblr ID" autocapitalize="off" onFocus="this.value=''">	
+   				<button type="submit" class="btn">&gt;</button>	
+   			</form>
+   			<!-- history list -->
+   			<h3>Recent</h3>
+   			<div id="history" class="hpList">
+   			   <ul>   			      
+   			   </ul>   			   
+   			</div>	
+   			<!-- favourite list -->
+   			<h3>Favourites</h3>
+   			<div id="favs" class="hpList">
+   			   <ul>   			      
+   			   </ul>   			   
+   			</div>	
+			</div> 			
+			<div id="firstLoad">
+		   loading<div class="loadbar"></div>
+			</div>  
+	   </div>	
+	   <!-- grid view :::::::::::::::::::::::::::::: -->
+		<div id="grid" class="view">			      
+		   <div class="content" id="gridContent"></div>		      			   	
+		</div>			
+		<!-- Detail view :::::::::::::::::::::::::::::: -->
+		<div id="detail" class="view">	
+			<div id="topBar">
+			   <button class="btnBack">Back</button>
+			   <button class="btnFav">Add</button>
+				<div class="handle"></div>
+			</div>		
+		   <div class="content" id="detailContent"></div>
+		   <div id="detailCaption">
+		   	<div class="handle">&bull;&nbsp;&bull;&nbsp;&bull;</div>
+		   	<span id="pin" class='pinned'></span>			
+		   	<div id="captionContent" class="overthrow"><div></div></div>
+		   	<div id="tmblButtons"></div>
+		   </div> 
+		</div>
+		<!-- loading :::::::::::::::::::::::::::::: -->
+		<div id="loadbarWrapper">
+		   <div class="loadbar"></div>
+		</div>
+	</div>	
+	<script>	  
+	   require.config({baseUrl: "app"});
+	   require(['../assets/js/zepto', '../assets/js/underscore'], function(){	      
+	      require(['modules/app'], function(app){
+            app.init();
+         });
+	   });
+      
+   </script>
+</body>
+</html>
