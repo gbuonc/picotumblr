@@ -1,5 +1,6 @@
 define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], function(iScrl, lawnch, app){  
    var $hpList = $('#favs >ul');
+   var btnFav = $('#topBar .btnFav');
    var favourites={
       scrollable : new iScroll('favs'),
       init: function(){   
@@ -9,51 +10,63 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
             favourites.sites = obj.favs;
             favourites.updateHpList();
          });
-      },   
-      add: function(tumblrId, avatar){
-         console.log(favourites.sites);
-         // get an array of id values (underscore.js)
-         var temp = _.pluck(favourites.sites, 'id');
-         // save only if not already present in temp array
-         var notInArray=temp.indexOf(tumblrId) === -1;         
-         if(notInArray){
-            tmpObj = {
-               id: tumblrId,
-               av: avatar 
-            }
-            // add as first item
-            favourites.sites.unshift(tmpObj); 
-            // save to local storage            
-            app.storage.get("tme", function(obj){
-               obj= obj.value;
-               obj.favs = favourites.sites;
-               app.storage.save({key:"tme", value:obj});
-            });
-            console.log(favourites.sites);
-            favourites.updateHpList();
-            app.showMessage(tmpObj.id+' added to favs!');
+      }, 
+      isFav: function(tumblrId){
+         // get an array of id values
+         var temp = $(favourites.sites).pluck('id');
+         var isInArray=temp.indexOf(tumblrId) !== -1;         
+         if(isInArray){   
+            return temp.indexOf(tumblrId); 
+         }else{
+            return false;
          }
       },
-      remove: function(tumblrId){
-         // get an array of id values (underscore.js)
-         var temp = _.pluck(favourites.sites, 'id'); 
-         // get current elment index     
-         var pos = temp.indexOf(tumblrId);
-         if(pos != -1){   
-            // remove current item from array        
-            favourites.sites.splice(pos,1); 
-            // save to local storage
-            app.storage.get("tme", function(obj){
-               obj= obj.value;
-               obj.favs = favourites.sites;
-               app.storage.save({key:"tme", value:obj});
+      setButton: function(tumblrId, el){   
+         var isFav = favourites.isFav(tumblrId);    
+         el.off('click'); // detach previous click events
+         if(isFav === false){
+            el.html('add').on('click', function(){
+               favourites.add(tumblrId, tumblr[tumblrId].siteInfo.avatar, el);
+            });            
+         }else{         
+            el.html('remove').on('click', function(){
+               favourites.remove(tumblrId, isFav, el);
             });
-            // and remove from list
-            $hpList.find('#fav_'+tumblrId).remove();
-            app.showMessage('This site has been removed!');
-         }else{
-            app.showMessage('Site already removed!');
+         }          
+      },
+      add: function(tumblrId, avatar, el){
+         // check already done
+         tmpObj = {
+            id: tumblrId,
+            av: avatar 
          }
+         // add as first item
+         favourites.sites.unshift(tmpObj); 
+         // save to local storage            
+         app.storage.get("tme", function(obj){
+            obj= obj.value;
+            obj.favs = favourites.sites;
+            app.storage.save({key:"tme", value:obj});
+         });
+         favourites.updateHpList();
+         app.showMessage(tmpObj.id+' added to favs!');
+         // reset button
+         favourites.setButton(tumblrId, el);
+      },
+      remove: function(tumblrId, pos, el){ 
+         // remove from array        
+         favourites.sites.splice(pos,1); 
+         // save to local storage
+         app.storage.get("tme", function(obj){
+            obj= obj.value;
+            obj.favs = favourites.sites;
+            app.storage.save({key:"tme", value:obj});
+         });
+         // and remove from list
+         $hpList.find('#fav_'+tumblrId).remove();
+         app.showMessage('This site has been removed!');
+         // reset button
+         favourites.setButton(tumblrId, el);
       },
       updateHpList: function(){          
          $hpList.html('');  

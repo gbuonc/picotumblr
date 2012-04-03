@@ -12,7 +12,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
       },   
       save: function(tumblrId, avatar){     
          // get an array of id values (underscore.js)
-         var temp = _.pluck(history.sites, 'id');
+         var temp = $(history.sites).pluck('id');     
          // save only if not already present in temp array
          var notInArray=temp.indexOf(tumblrId) === -1;         
          if(notInArray){

@@ -198,7 +198,9 @@ var SwipeView = (function(){
 		
 			// User defined options
 			for (i in options) this.options[i] = options[i];
-					
+			
+			// console.log( '__construct ', this.options.text, ' in ',this.wrapper );
+			
 			this.wrapper.style.overflow = 'hidden';
 			this.wrapper.style.position = 'relative';
 			
@@ -229,8 +231,8 @@ var SwipeView = (function(){
 					pageIndex = i == -1 ? this.options.numberOfPages - 1 : i;
 					div.dataset.pageIndex = pageIndex;
 					div.dataset.upcomingPageIndex = pageIndex;
-					// if (!this.options.loop && i == -1) div.style.visibility = 'hidden';
-					if (!this.options.loop && i == -1) div.style.visibility = '';
+
+					if (!this.options.loop && i == -1) div.style.visibility = 'hidden';
 
 					this.slider.appendChild(div);
 					this.masterPages.push(div);
@@ -314,7 +316,11 @@ var SwipeView = (function(){
 		},
 
 		__start: function (e) {
-			if (this.initiated) return;			
+			// e.preventDefault();
+			// console.log('__start in '+this.options.text);
+
+			if (this.initiated) return;
+			
 			var point = hasTouch ? e.touches[0] : e;
 			
 			this.initiated = true;
@@ -371,6 +377,8 @@ var SwipeView = (function(){
 				? Math.abs(point.pageY - this.startY)
 				: Math.abs(point.pageX - this.startX);
 
+			// console.log('__move in '+this.options.text);
+
 			this.moved = true;
 			this.pointX = point.pageX;
 			this.pointY = point.pageY;
@@ -393,6 +401,8 @@ var SwipeView = (function(){
 					return;
 				}
 			}
+
+			// console.log('__move, locked and correct direction in '+this.options.text);
 
 			e.preventDefault();
 
