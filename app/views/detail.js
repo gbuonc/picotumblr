@@ -79,19 +79,20 @@ function (  detailTpl,
              
    		// Load initial data
    		var detailGallery, el, i, page;
-         for (i=0; i<3; i++) {
-            page = (i+startPage)==0 ? slides.length+startPage-1 : i-1+startPage;            
+   		console.log(startPage);
+         for (i=0; i<3; i++) {           
+            page = (i+startPage)==0 ? slides.length+startPage-1 : i-1+startPage;    
             // render template
             context[i] ={
                bg: slides[page].thumb,
                img: slides[page].fullsize,
                caption: slides[page].caption
-            }  
-            $(detailGallery.masterPages[i]).html(template(context[i]));  
-            // image loading
-            $('.cell img').bind('load', function(){   
-            $(this).parent().addClass('loaded');   
-            });           
+            } 
+            console.log(i+' '+context[i].bg);
+            // write to page (images loaded onFlip)          
+            $(detailGallery.masterPages[i]).html(template(context[i]));     
+            // load images
+            detail.loadImage(detailGallery.masterPages[i]);             
          }    
                         
          // go to initial page  
@@ -107,7 +108,7 @@ function (  detailTpl,
             var loadedPictures = tumblr[tumblrId].pictures.length; 
           	var el, upcoming, i;
             for (i=0; i<3; i++) {
-                upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex;   
+                upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex;                  
                 if (upcoming != detailGallery.masterPages[i].dataset.pageIndex) {                  
                   // render template
                   context[i] ={
@@ -115,11 +116,10 @@ function (  detailTpl,
                      img: slides[upcoming].fullsize,
                      caption: slides[upcoming].caption
                   }  
+                  // write to page
                   $(detailGallery.masterPages[i]).html(template(context[i])); 
-                  $('.cell img').bind('load', function(){	
-                     var path = $(this).attr('src');
-                     $(this).parent().addClass('loaded').attr('style',"background:url("+path+") 50% no-repeat");	
-                  }); 
+                  // load images
+                  detail.loadImage(detailGallery.masterPages[i]);                  
                }
             } 
             // set caption
@@ -133,8 +133,15 @@ function (  detailTpl,
          
          // expose our gallery
          detail.gallery = detailGallery;
-      }  
-      
+      },
+      loadImage: function(el){         
+         var el = $(el);           
+         var imgToLoad = el.find('img');
+         imgToLoad.bind('load', function(){               
+            var src = imgToLoad.attr('src'); 
+            imgToLoad.parent().addClass('loaded').attr('style',"background:url("+src+") 50% no-repeat");
+         });    
+      }       
    }     
    return detail;
 });
