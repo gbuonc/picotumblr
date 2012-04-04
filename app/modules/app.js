@@ -50,6 +50,8 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             // hide initial loadbar
             $firstLoad.hide();
          }); 
+         // set array with loaded images
+         app.loadedImages =[];
       }, 
       goto: function(page){
          console.log('going to '+page);

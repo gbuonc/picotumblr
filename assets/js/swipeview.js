@@ -76,15 +76,13 @@ var SwipeView = (function(){
 		},
 		
 		goToPage: function (p) {
-
 			if( this.options.dynamic ) {
 				this.masterPages[this.currentMasterPage].className = this.masterPages[this.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
 				for (var i=0; i<3; i++) {
 					className = this.masterPages[i].className;
 					/(^|\s)swipeview-loading(\s|$)/.test(className) || (this.masterPages[i].className = !className ? 'swipeview-loading' : className + ' swipeview-loading');
 				}
-			}
-			
+			}			
 			p = p < 0 ? 0 : p > this.options.numberOfPages-1 ? this.options.numberOfPages-1 : p;
 			this.page = p;
 			this.pageIndex = p;
@@ -115,8 +113,7 @@ var SwipeView = (function(){
 				}
 
 				var leftpageindex = this.page == 0 ? this.options.numberOfPages-1 : this.page - 1;
-				var rightpageindex = this.page == this.options.numberOfPages-1 ? 0 : this.page + 1;
-
+				var rightpageindex = this.page == this.options.numberOfPages-1 ? 0 : this.page + 1;            
 				this.__movePage( mp0, leftpageindex, this.page * 100 - 100 );
 				this.__movePage( mp1, this.page, this.page * 100 );
 				this.__movePage( mp2, rightpageindex, this.page * 100 + 100 );

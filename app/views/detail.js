@@ -79,51 +79,69 @@ function (  detailTpl,
              
    		// Load initial data
    		var detailGallery, el, i, page;
-   		console.log(startPage);
-         for (i=0; i<3; i++) {           
-            page = (i+startPage)==0 ? slides.length+startPage-1 : i-1+startPage;    
-            // render template
+
+   		for (i=0; i<3; i++) {           
+   		   page = (i+startPage)==0 ? slides.length+startPage-1 : i-1+startPage; 
+   		   // render template
             context[i] ={
                bg: slides[page].thumb,
                img: slides[page].fullsize,
                caption: slides[page].caption
-            } 
-            console.log(i+' '+context[i].bg);
-            // write to page (images loaded onFlip)          
-            $(detailGallery.masterPages[i]).html(template(context[i]));     
+            }      
+            $(detailGallery.masterPages[i]).html(template(context[i]));
+               //             var txt ='<div style="float:left">masterpage '+i+':<br>';
+               //             txt+= '<img src="'+context[i].bg+'"></div>';
+               //             $('body').append(txt);    
             // load images
-            detail.loadImage(detailGallery.masterPages[i]);             
-         }    
-                        
-         // go to initial page  
+            detail.loadImage(detailGallery.masterPages[i], startPage); 
+         }      
+
+		   // go to initial page  
          setTimeout(function(){
             detailGallery.goToPage(startPage);
             captionSlide.update();
          },0);
          
+         var j = 0;
          // render on flip
-         detailGallery.onFlip(function () {  
+         detailGallery.onFlip(function () { 
+            j +=1;    
             // store landing page in grid
             app.current.gridPage = Math.floor(detailGallery.pageIndex/ppp); 
             var loadedPictures = tumblr[tumblrId].pictures.length; 
-          	var el, upcoming, i;
-            for (i=0; i<3; i++) {
-                upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex;                  
-                if (upcoming != detailGallery.masterPages[i].dataset.pageIndex) {                  
+          	var el, upcoming, i;       
+          	if(startPage < 2 && j >0){
+          	  for (i=0; i<3; i++) {              
+               upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex; 
+               if ((upcoming != detailGallery.masterPages[i].dataset.pageIndex) && (upcoming <= loadedPictures)) {                                 
                   // render template
                   context[i] ={
                      bg: slides[upcoming].thumb,
                      img: slides[upcoming].fullsize,
                      caption: slides[upcoming].caption
-                  }  
+                  }
                   // write to page
                   $(detailGallery.masterPages[i]).html(template(context[i])); 
+                  //                  var txt ='<div style="float:left; color:red">masterpage '+i+':<br>';
+                  //                  txt+= '<img src="'+context[i].bg+'"></div>';
+                  //                  $('body').append(txt);   
                   // load images
-                  detail.loadImage(detailGallery.masterPages[i]);                  
-               }
+                  detail.loadImage(detailGallery.masterPages[i]); 
+               }               
             } 
+            
+            // hide image at position -1
+            if(detailGallery.pageIndex===0){               
+               $(detailGallery.masterPages[0]).find('.cell').addClass('hidden');              
+            }
+            // hide image next to last image in array
+            if(detailGallery.pageIndex === slides.length-1){
+               $(detailGallery.masterPages[1]).find('.cell').addClass('hidden');
+            }
             // set caption
-            captionSlide.update();
+            captionSlide.update(); 
+          	}   	
+            
 	      });	
 	      
 	      // close caption on move out      
@@ -134,13 +152,14 @@ function (  detailTpl,
          // expose our gallery
          detail.gallery = detailGallery;
       },
-      loadImage: function(el){         
-         var el = $(el);           
-         var imgToLoad = el.find('img');
+      loadImage: function(el){   
+         var el = $(el),           
+         imgToLoad = el.find('img'); 
          imgToLoad.bind('load', function(){               
             var src = imgToLoad.attr('src'); 
+            app.loadedImages.push(src);
             imgToLoad.parent().addClass('loaded').attr('style',"background:url("+src+") 50% no-repeat");
-         });    
+         });         
       }       
    }     
    return detail;

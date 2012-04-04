@@ -136,7 +136,9 @@ var Zepto = (function() {
     })
     return target;
   }
-
+   $.inArray = function(elem, array, i){
+    return emptyArray.indexOf.call(array, elem, i)
+  }
   $.qsa = $$ = function(element, selector){
     var found;
     return (element === document && idSelectorRE.test(selector)) ?
