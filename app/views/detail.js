@@ -83,7 +83,13 @@ function (  detailTpl,
          },0);
          
          // render on flip
-         detailGallery.onFlip(function () { 
+         detailGallery.onFlip(function () {
+            // can swipe all way to last picture
+            // but need to preload next two pages in grid when swiping too much without going back...
+            if(slides.length-detailGallery.pageIndex <= (ppp*2)){
+               tumblr.getData(tumblrId, function () {
+               });
+            }
             totalSwipes+=1;    
             // store landing page in grid
             app.current.gridPage = Math.floor(detailGallery.pageIndex/ppp); 
@@ -94,10 +100,9 @@ function (  detailTpl,
                upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex;
                // fixed a problem occurring when startPage < 3  (sort of)
                // to do: check if the same occurs with last 3 images of entire collection
-               if((startPage <=2) && (totalSwipes<=1) && 
-                  (upcoming <= loadedPictures)||
-                  (upcoming != detailGallery.masterPages[i].dataset.pageIndex) && 
-                  (upcoming <= loadedPictures)){
+               if(((startPage <=2) && (totalSwipes<=1) 
+                  || (upcoming != detailGallery.masterPages[i].dataset.pageIndex)) 
+                  && (upcoming <= loadedPictures)){
                   // render template
                   context[i] ={
                      bg: slides[upcoming].thumb,
@@ -114,7 +119,7 @@ function (  detailTpl,
                   $(detailGallery.masterPages[0]).find('.cell').addClass('hidden');              
                }
                // hide image next to last image in array
-               if(detailGallery.pageIndex === slides.length-1){
+               if(detailGallery.pageIndex === totalPictures-1){
                   $(detailGallery.masterPages[1]).find('.cell').addClass('hidden');
                }
                // set caption
