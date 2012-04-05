@@ -1,16 +1,12 @@
 define([
    '../../assets/js/director', 
    'modules/app', 
-   'modules/history', 
-   'modules/favourites',
    'views/home', 
    'views/grid', 
    'views/detail'], 
    function (
       director, 
       app, 
-      history,
-      favourites,
       homeView, 
       gridView, 
       detailView) { 
@@ -31,8 +27,7 @@ define([
          on: function(){  
             // refresh history list
             setTimeout(function(){
-            history.scrollable.refresh();
-            favourites.scrollable.refresh();
+               homeView.init();            
             }, 0);            
          	view.currentBackAnim = 'slidedown';
             view.changeView('home', 'slideup');
@@ -46,7 +41,6 @@ define([
       },
       '/:tumblrId': {   
          on: function(tumblrId){    
-            //app.goto('grid');
             view.changeView('grid', 'slideleft');               
                if(app.current.tumblrId === tumblrId){ 
                   // if site already loaded simply switch back and change current page view without reinitialising     

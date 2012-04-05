@@ -8,7 +8,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
          app.storage.get("tme", function(obj){ 
             obj= obj.value; 
             favourites.sites = obj.favs;
-            favourites.updateHpList();
+            //favourites.updateHpList();
          });
       }, 
       isFav: function(tumblrId){
@@ -48,7 +48,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
             obj.favs = favourites.sites;
             app.storage.save({key:"tme", value:obj});
          });
-         favourites.updateHpList();
+         //favourites.updateHpList();
          app.showMessage(tmpObj.id+' added to favs!');
          // reset button
          favourites.setButton(tumblrId, el);
@@ -75,7 +75,8 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
          for(i=0; i<l; i++){
             el+='<li id="fav_'+favourites.sites[i].id+'"><a href="#/'+favourites.sites[i].id+'"><img src="'+favourites.sites[i].av+'" /></a></li>';
          }         
-         $hpList.html(el);           
+         $hpList.html(el); 
+         favourites.scrollable.refresh();
       },
       reset: function(){
          favourites.sites.length = 0;

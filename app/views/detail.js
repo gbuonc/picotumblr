@@ -141,7 +141,6 @@ function (  detailTpl,
          imgToLoad = el.find('img'); 
          imgToLoad.bind('load', function(){               
             var src = imgToLoad.attr('src'); 
-            app.loadedImages.push(src);
             imgToLoad.parent().addClass('loaded').attr('style',"background:url("+src+") 50% no-repeat");
          });         
       }       

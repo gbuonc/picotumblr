@@ -7,7 +7,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
          app.storage.get("tme", function(obj){ 
             obj= obj.value; 
             history.sites = obj.history;
-            history.updateHpList();
+            //history.updateHpList();
          });
       },   
       save: function(tumblrId, avatar){     
@@ -33,7 +33,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
                obj.history = history.sites;
                app.storage.save({key:"tme", value:obj});
             });
-            history.updateHpList();
+            //history.updateHpList();
          }
       },
       updateHpList: function(){ 
@@ -44,6 +44,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
             el+='<li id="history_'+history.sites[i].id+'"><a href="#/'+history.sites[i].id+'"><img src="'+history.sites[i].av+'" /></a></li>';
          }         
          $hpList.html(el);  
+         history.scrollable.refresh();
       },
       reset: function(){
          history.sites.length = 0;

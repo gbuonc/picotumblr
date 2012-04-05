@@ -1,4 +1,4 @@
-define([ '../../assets/js/iscroll'], function (iScr) {  
+define([ '../../assets/js/iscroll', 'modules/related'], function (iScr, relatedSites) {  
    captionButtons =$('#tmblButtons'),
    handle = $('#detailCaption .handle'),
    detailCaption = $('#detailCaption'),
@@ -36,8 +36,10 @@ define([ '../../assets/js/iscroll'], function (iScr) {
                // if match pattern get tumblrid, get rid of http... and insert in a link 
                if(caption.pattern.test(tumblrRef[i])){                  
                   tumblrRef[i] = caption.pattern.exec(tumblrRef[i]); 
-                  tumblrRef[i] = tumblrRef[i][0].replace("http://", "");                                 
+                  tumblrRef[i] = tumblrRef[i][0].replace("http://", "");  
                   buttons+='<a href="#/'+tumblrRef[i]+'">'+tumblrRef[i]+'</a>'; 
+                  // add to related sites array    
+                  relatedSites.add(tumblrRef[i]);
                }
             }                                         
             // add buttons to caption  

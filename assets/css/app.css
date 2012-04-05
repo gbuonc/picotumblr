@@ -270,6 +270,23 @@ position:relative;
    height: 45px; 
    margin: 2px 5px;
 }
+/* related sites */
+#rels ul li{
+   display: inline;
+   width: auto;
+   height: auto;
+   text-align: center;
+   white-space: nowrap;
+   float: left;
+   margin:2px 3px;
+}
+#rels ul li a{
+   background-color: #c00;
+   padding: 4px 6px;
+   text-decoration: none;
+   text-transform: uppercase;
+}
+
 
 /* Grid view
 ====================================================== */

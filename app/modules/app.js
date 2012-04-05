@@ -38,23 +38,24 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
                }; 
                app.storage.save({key:"tme",value:list}); 
             }
-         });                  
-         // Init modules       
-      	require(["modules/history", "modules/favourites", "modules/routing"], function(history, favourites, router){            
-            history.init();
-            favourites.init();
-            router.init();
+         });  
+         // set start URL  
+      	require(["modules/routing"], function(router){            
+            router.init();  
             if(router.getRoute() ==''){  
                location.href='#/';  
-            };
-            // hide initial loadbar
-            $firstLoad.hide();
+            };          
+         });   
+         // hide initial loadbar
+         $firstLoad.hide();                   
+         // Init modules       
+      	require(["modules/history", "modules/favourites"], function(history, favourites){            
+            history.init();
+            favourites.init();      
          }); 
-         // set array with loaded images
-         app.loadedImages =[];
-      }, 
-      goto: function(page){
-         console.log('going to '+page);
+         // Create related sites array. 
+         // Lives only in the current session
+         app.relatedSites =[];
       }, 
       showLoadbar: function(){
          loadbar.addClass('visible');

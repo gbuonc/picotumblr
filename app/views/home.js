@@ -1,4 +1,15 @@
-define(['modules/app', 'modules/tumblr'], function (app, tumblr) { 
+define([ 
+   'modules/app', 
+   'modules/tumblr', 
+   'modules/history', 
+   'modules/favourites',
+   'modules/related'], 
+function (
+   app, 
+   tumblr,
+   history,
+   favourites, 
+   related) { 
    var form = $('.searchForm'); 
    // check submitted value
    form.bind('submit', function(e){
@@ -12,5 +23,14 @@ define(['modules/app', 'modules/tumblr'], function (app, tumblr) {
       	}); 
       }
       e.preventDefault(); 
-   });      
+   });
+   var home ={
+      init:function(){
+         // refresh all scrollables in hp
+         history.updateHpList();
+         favourites.updateHpList();
+         related.updateHpList();
+      }
+   }
+   return home;   
 });
