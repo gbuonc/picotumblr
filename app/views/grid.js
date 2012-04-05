@@ -137,6 +137,10 @@ define([
                if(gridGallery.pageIndex === totalPages-1){
                   $(gridGallery.masterPages[1]).find('.thumbnails').addClass('hidden');
                }
+               if(totalPages == 1){
+               $(gridGallery.masterPages[1]).find('.thumbnails').removeClass('hidden');
+               $(gridGallery.masterPages[2]).find('.thumbnails').addClass('hidden');
+               }
             }
          });
          grid.gallery = gridGallery;
