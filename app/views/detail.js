@@ -28,14 +28,12 @@ function (  detailTpl,
    // SET ONCE : events
    // back button
    $btnBack.on('click', function(){ 
-      location.href='#/'+app.current.tumblrId;  
+      location.href='#/'+app.current.tumblrId; 
       return false;
-   });   
-
+   });  
    var detail={
       
-      init: function(tumblrId, startPage){    
-                     
+      init: function(tumblrId, startPage){           
          // reaching this page I suppose data has already been loaded in the previous view.  
       	var totalPictures;  	      	      	
       	if(app.current.tumblrId){
@@ -44,21 +42,22 @@ function (  detailTpl,
       	}else{
       	   // but if I land here directly then redirect to grid view
       	   location.href='#/'+tumblrId;
-      	}    
-      	  	 	
+      	}          	  	 	
       },      
       
       initSwipeView: function(tumblrId, totalPictures, startPage){   
-         
          var slides = tumblr[tumblrId].pictures,
-         startPage = parseInt(startPage, 10);
-               
+         startPage = parseInt(startPage, 10)
+         totalSwipes = 0;
+         // destroy previews detailGalleries
+         if(detail.gallery){
+            detail.gallery.destroy();
+         }               
          // clear content
-         $detailContent.html('');	
-                  
+         $detailContent.html('');          
+         
          // set new swipeview
-   		var detailGallery = new SwipeView('#detailContent', { numberOfPages: totalPictures, loop: false});    	
-   			  
+   		var detailGallery = new SwipeView('#detailContent', { numberOfPages: totalPictures, loop: false});
    		// set topBar
          var topBar = new slideInMenu('topBar', false, 'top');
          topBar.close();  	
@@ -75,26 +74,7 @@ function (  detailTpl,
    		// handlebars template
    		var source = $(detailTpl).html();
          var template = Handlebars.compile(source);
-         var context ={};     
-             
-   		// Load initial data
-   		var detailGallery, el, i, page;
-
-   		for (i=0; i<3; i++) {           
-   		   page = (i+startPage)==0 ? slides.length+startPage-1 : i-1+startPage; 
-   		   // render template
-            context[i] ={
-               bg: slides[page].thumb,
-               img: slides[page].fullsize,
-               caption: slides[page].caption
-            }      
-            $(detailGallery.masterPages[i]).html(template(context[i]));
-               //             var txt ='<div style="float:left">masterpage '+i+':<br>';
-               //             txt+= '<img src="'+context[i].bg+'"></div>';
-               //             $('body').append(txt);    
-            // load images
-            detail.loadImage(detailGallery.masterPages[i], startPage); 
-         }      
+         var context ={};   
 
 		   // go to initial page  
          setTimeout(function(){
@@ -102,18 +82,22 @@ function (  detailTpl,
             captionSlide.update();
          },0);
          
-         var j = 0;
          // render on flip
          detailGallery.onFlip(function () { 
-            j +=1;    
+            totalSwipes+=1;    
             // store landing page in grid
             app.current.gridPage = Math.floor(detailGallery.pageIndex/ppp); 
             var loadedPictures = tumblr[tumblrId].pictures.length; 
-          	var el, upcoming, i;       
-          	if(startPage < 2 && j >0){
-          	  for (i=0; i<3; i++) {              
-               upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex; 
-               if ((upcoming != detailGallery.masterPages[i].dataset.pageIndex) && (upcoming <= loadedPictures)) {                                 
+          	var el, upcoming, i;  
+          	
+            for (i=0; i<3; i++) {
+               upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex;
+               // fixed a problem occurring when startPage < 3  (sort of)
+               // to do: check if the same occurs with last 3 images of entire collection
+               if((startPage <=2) && (totalSwipes<=1) && 
+                  (upcoming <= loadedPictures)||
+                  (upcoming != detailGallery.masterPages[i].dataset.pageIndex) && 
+                  (upcoming <= loadedPictures)){
                   // render template
                   context[i] ={
                      bg: slides[upcoming].thumb,
@@ -121,26 +105,21 @@ function (  detailTpl,
                      caption: slides[upcoming].caption
                   }
                   // write to page
-                  $(detailGallery.masterPages[i]).html(template(context[i])); 
-                  //                  var txt ='<div style="float:left; color:red">masterpage '+i+':<br>';
-                  //                  txt+= '<img src="'+context[i].bg+'"></div>';
-                  //                  $('body').append(txt);   
+                  $(detailGallery.masterPages[i]).html(template(context[i]));  
                   // load images
-                  detail.loadImage(detailGallery.masterPages[i]); 
-               }               
-            } 
-            
-            // hide image at position -1
-            if(detailGallery.pageIndex===0){               
-               $(detailGallery.masterPages[0]).find('.cell').addClass('hidden');              
-            }
-            // hide image next to last image in array
-            if(detailGallery.pageIndex === slides.length-1){
-               $(detailGallery.masterPages[1]).find('.cell').addClass('hidden');
-            }
-            // set caption
-            captionSlide.update(); 
-          	}   	
+                  detail.loadImage(detailGallery.masterPages[i]);
+               }
+               // hide image at position -1
+               if(detailGallery.pageIndex===0){               
+                  $(detailGallery.masterPages[0]).find('.cell').addClass('hidden');              
+               }
+               // hide image next to last image in array
+               if(detailGallery.pageIndex === slides.length-1){
+                  $(detailGallery.masterPages[1]).find('.cell').addClass('hidden');
+               }
+               // set caption
+               captionSlide.update();   
+            }   	
             
 	      });	
 	      

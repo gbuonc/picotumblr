@@ -53,16 +53,14 @@ define([
                   app.hideLoadbar();
                   gridView.gotoPage(app.current.gridPage);                      
                }else{
-                  // if new site reinitialise gallery 
-                  if(gridView.gallery) gridView.gallery.destroy();
+                  // if new site reinitialise gallery                   
                   gridView.init(tumblrId);                
                } 
             view.currentBackAnim = 'slideright';
          }   
       },
       '/:tumblrId/:imgId': {           
-         on: function(tumblrId, imgId){
-            if(detailView.gallery) detailView.gallery.destroy();
+         on: function(tumblrId, imgId){            
             view.changeView('detail', 'slideleft'); 
             detailView.init(tumblrId, imgId); 
             view.currentBackAnim = 'slideright';
