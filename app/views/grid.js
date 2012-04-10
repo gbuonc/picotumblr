@@ -70,8 +70,7 @@ define([
          });
       },      
       initSwipeView: function (tumblrId, totalPictures) {         
-         var slides = tumblr[tumblrId].pictures,
-         totalSwipes = 0;
+         var slides = tumblr[tumblrId].pictures;         
          // destroy previews grids
          if(grid.gallery){
             grid.gallery.destroy();
@@ -82,6 +81,7 @@ define([
             vertical: true
          });
          grid.gridGallery = gridGallery;
+         gridGallery.totalSwipes = 0;
          // handlebars template  
          var source = $(gridTpl).html();
          var template = Handlebars.compile(source);
@@ -91,25 +91,29 @@ define([
          // show header info
          $('#headerInfo').addClass('loaded');
          
-         // go to initial page
-         grid.gotoPage(0);
+         // go to initial page (wait for headerInfo animation to end)
+         var go = window.setTimeout(function(){
+           grid.gotoPage(0); 
+           window.clearTimeout(go);
+         }, 400);
+         
          
          // render on flip
          gridGallery.onFlip(function () {
             // store current page in grid
-            app.current.gridPage = gridGallery.pageIndex;              
-            totalSwipes+=1;   
+            app.current.gridPage = gridGallery.pageIndex;                  
             var el, upcoming, i,
             picsLoaded = (gridGallery.pageIndex*ppp)+ppp,
             pagePreloaded = (tumblr[tumblrId].pictures.length % ppp === 0) ? tumblr[tumblrId].pictures.length / ppp : Math.floor((tumblr[tumblrId].pictures.length / ppp) + 1);
             currentPage = parseInt(gridGallery.pageIndex+1, 10);              
             // load more pics when scrolling forward
             if (gridGallery.direction === 'forward') { 
+               gridGallery.totalSwipes +=1;
                tumblr.getData(tumblrId);
             }                       
             for (i = 0; i < 3; i++) {
                upcoming = gridGallery.masterPages[i].dataset.upcomingPageIndex;               
-               if(((startPage <=2) && (totalSwipes<=1) 
+               if(((startPage <=2) && (gridGallery.totalSwipes<=1) 
                   || (upcoming != gridGallery.masterPages[i].dataset.pageIndex)) 
                   && (upcoming <= picsLoaded)){            
                   // render template      
@@ -119,15 +123,30 @@ define([
                      lastPic=parseInt((upcoming*ppp)+ppp, 10);                                                
                      for (var i=firstPic; i<lastPic; i++) {
                         if(pictures[i]){
-                           ret = ret + '<a href="#/' + tumblrId + '/' + i + '" style="background-image:url('+pictures[i].thumb+')"><img src="' + pictures[i].thumb + '"></a>';
+                           ret = ret + '<a href="#/' + tumblrId + '/' + i + '" style="background-image:url('+pictures[i].thumb+')"></a>';
                         }                  
                      }
                   return ret;
                   });
                   $(gridGallery.masterPages[i]).html(template(tumblr[tumblrId]));  
-                  $('.thumbnails > a').find('img').bind('load', function(){   
-                     $(this).unbind().parent('a').addClass('loaded');   
-                  });            
+                  // if first page loaded fadein thumbnail, otherwise show them immediatly
+                  if(gridGallery.totalSwipes === 0){
+                     $('#swipeview-masterpage-1 .thumbnails > a').each(function(i, el){
+                     i = i++;
+                     var delayTime = i*100;
+                     var fade = window.setTimeout(function(){
+                        $(el).addClass('loaded');
+                        window.clearTimeout(fade);
+                     }, delayTime);              
+                     });
+                     $('#swipeview-masterpage-2 .thumbnails > a').each(function(i, el){
+                        $(el).addClass('loaded');                   
+                     });                       
+                  }else{
+                     $('.thumbnails > a').each(function(i, el){
+                        $(el).addClass('loaded');                   
+                     }); 
+                  }
                }
                // hide page at position -1
                if(gridGallery.pageIndex===0){               
@@ -137,6 +156,7 @@ define([
                if(gridGallery.pageIndex === totalPages-1){
                   $(gridGallery.masterPages[1]).find('.thumbnails').addClass('hidden');
                }
+               // when there's only one page show page 1 and hide page 2
                if(totalPages == 1){
                $(gridGallery.masterPages[1]).find('.thumbnails').removeClass('hidden');
                $(gridGallery.masterPages[2]).find('.thumbnails').addClass('hidden');

@@ -47,8 +47,7 @@ function (  detailTpl,
       
       initSwipeView: function(tumblrId, totalPictures, startPage){   
          var slides = tumblr[tumblrId].pictures,
-         startPage = parseInt(startPage, 10)
-         totalSwipes = 0;
+         startPage = parseInt(startPage, 10);         
          // destroy previews detailGalleries
          if(detail.gallery){
             detail.gallery.destroy();
@@ -58,6 +57,7 @@ function (  detailTpl,
          
          // set new swipeview
    		var detailGallery = new SwipeView('#detailContent', { numberOfPages: totalPictures, loop: false});
+   		detailGallery.totalSwipes = 0;
    		// set topBar
          var topBar = new slideInMenu('topBar', false, 'top');
          topBar.close();  	
@@ -90,17 +90,18 @@ function (  detailTpl,
                tumblr.getData(tumblrId, function () {
                });
             }
-            totalSwipes+=1;    
             // store landing page in grid
             app.current.gridPage = Math.floor(detailGallery.pageIndex/ppp); 
             var loadedPictures = tumblr[tumblrId].pictures.length; 
           	var el, upcoming, i;  
-          	
+          	if (detailGallery.direction === 'forward') { 
+               detailGallery.totalSwipes+=1;  
+            }     
             for (i=0; i<3; i++) {
                upcoming = detailGallery.masterPages[i].dataset.upcomingPageIndex;
                // fixed a problem occurring when startPage < 3  (sort of)
                // to do: check if the same occurs with last 3 images of entire collection
-               if(((startPage <=2) && (totalSwipes<=1) 
+               if(((startPage <=2) && (detailGallery.totalSwipes<=1) 
                   || (upcoming != detailGallery.masterPages[i].dataset.pageIndex)) 
                   && (upcoming <= loadedPictures)){
                   // render template
@@ -118,7 +119,7 @@ function (  detailTpl,
                if(detailGallery.pageIndex===0){               
                   $(detailGallery.masterPages[0]).find('.cell').addClass('hidden');              
                }
-               // hide image next to last image in array
+               // hide image after last image in array
                if(detailGallery.pageIndex === totalPictures-1){
                   $(detailGallery.masterPages[1]).find('.cell').addClass('hidden');
                }

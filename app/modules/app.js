@@ -53,8 +53,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             history.init();
             favourites.init();      
          }); 
-         // Create related sites array. 
-         // Lives only in the current session
+         // Create related sites array. Lives only in the current session
          app.relatedSites =[];
       }, 
       showLoadbar: function(){
