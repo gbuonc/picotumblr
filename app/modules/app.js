@@ -18,7 +18,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       	   app.current.animation='none';
          },
       },
-      init: function(){         
+      init: function(){     
          // detect if webapp is saved in home
       	if(window.navigator.standalone){
       		$('body').bind('touchmove', function(e){ 
@@ -56,7 +56,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          // Create related sites array. Lives only in the current session
          app.relatedSites =[];
       }, 
-      showLoadbar: function(){
+      showLoadbar: function(){         
          loadbar.addClass('visible');
       },
       hideLoadbar: function(){

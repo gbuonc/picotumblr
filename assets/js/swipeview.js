@@ -196,7 +196,7 @@ var SwipeView = (function(){
 			// User defined options
 			for (i in options) this.options[i] = options[i];
 					
-			this.wrapper.style.overflow = 'hidden';
+			//this.wrapper.style.overflow = 'hidden';
 			this.wrapper.style.position = 'relative';
 			
 			this.topmult = this.options.vertical ? 1.0 : 0.0;

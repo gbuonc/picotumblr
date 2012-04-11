@@ -41,6 +41,7 @@ function (  detailTpl,
       	   detail.initSwipeView(tumblrId, totalPictures, startPage);      	   
       	}else{
       	   // but if I land here directly then redirect to grid view
+      	   $('#detail').removeClass('current');
       	   location.href='#/'+tumblrId;
       	}          	  	 	
       },      
@@ -86,7 +87,7 @@ function (  detailTpl,
          detailGallery.onFlip(function () {
             // can swipe all way to last picture
             // but need to preload next two pages in grid when swiping too much without going back...
-            if(slides.length-detailGallery.pageIndex <= (ppp*2)){
+            if((slides.length-detailGallery.pageIndex) <= (ppp*2)){
                tumblr.getData(tumblrId, function () {
                });
             }
@@ -125,10 +126,8 @@ function (  detailTpl,
                }
                // set caption
                captionSlide.update();   
-            }   	
-            
-	      });	
-	      
+            }   	            
+	      });		      
 	      // close caption on move out      
 	      detailGallery.onMoveOut(function () {
             captionSlide.closeWithoutAnimation();

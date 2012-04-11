@@ -17,7 +17,7 @@ function (
       if (tumblrId === '') {
          app.errors.showAlert(app.errors.message.empty);     
       } else {           
-         app.showLoadbar();
+         app.showLoadbar('mainApp');
       	tumblr.getData(tumblrId, function(){   	   
       	   location.href='#/'+tumblrId;
       	}); 

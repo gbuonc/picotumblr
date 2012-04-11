@@ -9,8 +9,7 @@ define([
       app, 
       homeView, 
       gridView, 
-      detailView) { 
-            
+      detailView) {             
    var $mainApp = $('#mainApp'),
    $searchInput = $('#tid');
    
@@ -39,17 +38,19 @@ define([
             }, 500)         
          }
       },
-      '/:tumblrId': {   
-         on: function(tumblrId){    
-            view.changeView('grid', 'slideleft');               
-               if(app.current.tumblrId === tumblrId){ 
+      '/:tumblrId': {  
+         before: function(tumblrId){
+            if(app.current.tumblrId === tumblrId){ 
                   // if site already loaded simply switch back and change current page view without reinitialising     
                   app.hideLoadbar();
                   gridView.gotoPage(app.current.gridPage);                      
-               }else{
-                  // if new site reinitialise gallery                   
-                  gridView.init(tumblrId);                
-               } 
+            }else{
+               // if new site reinitialise gallery                   
+               gridView.init(tumblrId);                
+            } 
+         },
+         on: function(tumblrId){    
+            view.changeView('grid', 'slideleft');
             view.currentBackAnim = 'slideright';
          }   
       },
@@ -67,6 +68,7 @@ define([
       goingBack: false,
       changeView: function(page, transition){  
          var startPage = $('.current'),
+         pages = $('.view'),
          landingPage = $('#'+page),
          // if we're tapping back button then use back animation       
          effect = (view.goingBack === true)?view.currentBackAnim:transition;
@@ -80,7 +82,7 @@ define([
              // do page transitions
             landingPage.addClass('anim '+effect+' in'); 
             $mainApp.bind('webkitAnimationEnd', function(){
-               startPage.attr('class', 'view');
+               pages.attr('class', 'view');
                landingPage.attr('class', 'current view');               
             });            
          }

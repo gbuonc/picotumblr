@@ -18,6 +18,7 @@ define([
          
    // SET ONCE : page elements
    var currentPage = document.getElementById('grid'),
+   page = $('#grid'),
    content = $('#gridContent'),
    ppp = app.config.ppp, // pics per page
    buffer = app.config.buffer, // pics to preload,
@@ -39,7 +40,7 @@ define([
          app.current.reset(tumblrId);
          content.html('');    
          // show loadbar (just in case)
-         app.showLoadbar();     
+         app.showLoadbar('mainApp');     
          tumblr.getData(tumblrId, function () {
             // get total pictures and calculate total pages
             totalPictures = tumblr[tumblrId].siteInfo.totalPictures;
@@ -49,7 +50,13 @@ define([
             // handlebars template  
             var source = $(infoTpl).html();
             var template = Handlebars.compile(source);
-            content.html(template(tumblr[tumblrId].siteInfo));                          
+            // ------------------------------------------------------
+            // just showing a usable grid when debugging via desktop
+            if(!$.os.touch){
+               tumblr[tumblrId].siteInfo.overflow='overflow:hidden';
+            }           
+            // ------------------------------------------------------
+            page.html(template(tumblr[tumblrId].siteInfo));  
             // save current site to recent array          
             history.save(tumblrId, tumblr[tumblrId].siteInfo.avatar);                
             // buffer pics or init swipe
