@@ -161,7 +161,9 @@ define([
                }
                // hide page next to last one in array
                if(gridGallery.pageIndex === totalPages-1){
-                  $(gridGallery.masterPages[1]).find('.thumbnails').addClass('hidden');
+                  // calculate last masterpage via modulus 3
+                  var mod = (gridGallery.pageIndex+2)%3;
+                  $(gridGallery.masterPages[mod]).find('.thumbnails').addClass('hidden');
                }
                // when there's only one page show page 1 and hide page 2
                if(totalPages == 1){
