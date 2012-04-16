@@ -36,7 +36,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
                   history:[],
                   favs:[]            
                }; 
-               app.storage.save({key:"tme",value:list}); 
+               app.storage.save({key:"tme",value:list}, function(){}); 
             }
          });  
          // set start URL  

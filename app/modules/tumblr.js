@@ -37,9 +37,13 @@ define(['modules/app', 'modules/routing'],function (app, router) {
       				for(i=0; i< picts.length; i++){
       					// get the pic before last item in the alt_sizes array to get image to use as thumbnail
       					thumbnail = picts[i].photos[0].alt_sizes.length-2;
+      					// tumblr bug??? 1280 pix get 403 error. So get 500px pic (first or second object depending on original pic)
+      					var full = picts[i].photos[0].alt_sizes[0]; 
+      					full = full.width <= 500 ? full : picts[i].photos[0].alt_sizes[1];
+      					// ...
       					tumblr[tumblrId].pictures[i+offset]={      					   
       					   thumb:picts[i].photos[0].alt_sizes[thumbnail].url,
-      						fullsize:picts[i].photos[0].alt_sizes[0].url,		
+      						fullsize:full.url,		
       						caption:picts[i].caption         						
          				}					
       				} 		

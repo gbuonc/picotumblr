@@ -1,4 +1,4 @@
-define(['modules/app'], function(app){  
+define(['modules/app', '../../assets/js/iscroll'], function(app, iScrl){  
    var $hpList = $('#rels >ul');
    var relatedSites ={   
       scrollable : new iScroll('rels'),   
