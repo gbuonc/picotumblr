@@ -18,32 +18,37 @@
 	   <!-- home view ::::::::::::::::::::::::::: -->
 	   <div id="home" class="current view">
 	      <div class="content" id="homeContent">
-   	      <div id="logo">
-   	      	<h1><span id="t">Tumblr</span><span id="m">Mobile</span><span id="e">Explorer</span></h1>	
-   	      	<p>now auto updating! :-)</p>
-   	      </div>
-   	      <form action="#/" method="post" id="inputId" name="searchForm" class="searchForm">
-   				<input type="text" name="tid" id="tid" value="" placeholder="Tumblr ID" autocapitalize="off" onFocus="this.value=''">	
-   				<button type="submit" class="btn">&gt;</button>	
-   			</form>
-   			<!-- history list -->
-   			<h3>Recent</h3>
-   			<div id="history" class="hpList">
-   			   <ul>   			      
-   			   </ul>   			   
-   			</div>	
-   			<!-- favourite list -->
-   			<h3>Favourites</h3>
-   			<div id="favs" class="hpList">
-   			   <ul>   			      
-   			   </ul>   			   
-   			</div>
-   			<!-- related list -->
-   			<h3>Related</h3>
-   			<div id="rels" class="hpList">
-   			   <ul>   			      
-   			   </ul>   			   
-   			</div>	
+	         <div id="topSearch">
+	            <h1>Tumblr Mobile Explorer</h1>	
+	            <form action="#/" method="post" id="inputId" name="searchForm" class="searchForm">
+   				   <input type="text" name="tid" id="tid" value="" placeholder="tumblr id_" autocapitalize="off" onFocus="this.value=''">	
+   				   <button type="submit" class="btn">Search</button>	
+   			   </form>
+	         </div>
+	         
+	         <div id="hpTabs">
+	            <ul>
+	               <li id="recentTab">Recent
+	                  <div id="history" class="hpList">
+            			   <ul>   			      
+            			   </ul>   			   
+            			</div>
+	               </li>
+	               <li id="favsTab">Favs
+	                  <div id="favs" class="hpList">
+            			   <ul>   			      
+            			   </ul>   			   
+            			</div>
+	               </li>
+	               <li id="exploreTab">Explore
+	                  <div id="rels" class="hpList">
+            			   <ul>   			      
+            			   </ul>   			   
+            			</div>
+	               </li>
+	            </ul>	            
+	         </div>
+	         
 			</div> 
 	   </div>	
 	   <!-- grid view :::::::::::::::::::::::::::::: -->

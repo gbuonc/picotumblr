@@ -44,6 +44,11 @@ time, mark, audio, video {
 
 }
 
+/*  COLORS
+background:  #2d2b29;
+higlight: #e93430;
+mute: #333130;
+light: #494744; */
 
 /* basic view structure 
 ====================================================== */
@@ -55,7 +60,7 @@ time, mark, audio, video {
 html, body{	
    font-family: 'LeagueGothicRegular', Helvetica, sans-serif;
 	font-size:14px;
-	background: #000;/*  url('../gfx/bg.png') repeat; */
+	background: #2d2b29;
 	color:#fff;
 }
 a{
@@ -107,11 +112,11 @@ body #mainApp.window{
 button{
    cursor: pointer;
    text-decoration: underline;
-	background:#c00;
+	background:#2d2b29;
 	border:none;
 	display:inline-block;
 	color:#fff;
-	   font-family: 'LeagueGothicRegular', Helvetica, sans-serif;
+	font-family: 'LeagueGothicRegular', Helvetica, sans-serif;
 	height:44px;
 	width:44px;
 	text-transform:uppercase;
@@ -134,13 +139,6 @@ button{
    z-index:4;
 }
 
-h1{
-   font-size: 25px;
-   padding: 4px;
-	text-transform:uppercase;
-	color:#c00;
-}
-
 
 /* Loadbar
 ====================================================== */
@@ -150,7 +148,7 @@ h1{
    line-height: 54px;
    font-size: 14px;
    margin:2px auto;
-   background-color: #c00;
+   background-color: #2d2b29;
    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
    -webkit-background-size: 10px 10px;   
    -webkit-transform: translate3d(0, 0, 0);  
@@ -189,43 +187,40 @@ h1{
 
 /* Home view
 ====================================================== */
+#topSearch{
+   text-align: center;
+   margin-top: 40%;
+   margin-bottom: 10%;
+}
 #home h1{
-padding:30px 0 20px;
 line-height:.8;
 position:relative;
-margin: 0 auto 0;
+margin-bottom:15px;
 position:relative;
-}
-#logo{
-	margin:0 auto;
-	overflow:hidden;
-}
-#home h1 span{
-	display:block;
-}
-#home h1 #t{
-	font-size:40px;
-}
-#home h1 #m{
-}
-#home h1 #e{
+font-size: 24px;
+text-transform:uppercase;
 }
 #inputId button{
-	font-size:40px;
-	line-height:1;
+   display: inline-block;
+   height: 30px;
+   background-color: #e93430;
+	font-size:18px;
+	line-height:30px;
+	text-transform: uppercase;
+   width: auto;
+   padding:0 8px;
 }
 #inputId input{
 	font-family: 'LeagueGothicRegular', Helvetica, sans-serif;
-	font-size:30px;
-	height:44px;
+	font-size:18px;
+	height:30px;
 	padding:0 4px;
-	width:224px;
 	-webkit-border-radius:0;
 	border:none;
 	position:relative;
-	top:-4px;
-	color:#000;
-	background:#f2f2f2;
+	color:#fff;
+	background:#494744;
+	width: 55%;
 }
 .load {
    font-size: 13px;
@@ -234,11 +229,12 @@ position:relative;
    letter-spacing: 0.25em;
 }
 /* favs & recents */
+
 .hpList{
    position: relative;
    width: 100%;
    height: 52px;
-   margin:10px auto;
+   margin:5px auto;
    text-align: left;
    overflow: visible;
    border-top: 1px solid #999;
