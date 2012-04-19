@@ -1,16 +1,23 @@
-define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], function(iScrl, lawnch, app){  
-   var $hpList = $('#history >ul');
+define([ '../../assets/js/text!templates/hlist.tpl', 
+         '../../assets/js/handlebars', 
+         '../../assets/js/iscroll', 
+         '../../assets/js/lawnchair', 
+         'modules/app'], 
+   function(listTpl, handlebars, iScrl, lawnch, app){  
+   var $hpList = $('#history');
+   // handlebars template  
+   var source = $(listTpl).html();
+   var template = Handlebars.compile(source);       
    var history={
       scrollable : new iScroll('history'),
-      init: function(){                
+      init: function(){              
          // check local storage       
          app.storage.get("tme", function(obj){ 
             obj= obj.value; 
             history.sites = obj.history;
-            //history.updateHpList();
          });
       },   
-      save: function(tumblrId, avatar){     
+      save: function(tumblrId, site){     
          // get an array of id values (underscore.js)
          var temp = $(history.sites).pluck('id');     
          // save only if not already present in temp array
@@ -18,7 +25,8 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
          if(notInArray){
             tmpObj = {
                id: tumblrId,
-               av: avatar 
+               title:site.siteInfo.title,
+               av: site.siteInfo.avatar                
             }
             // add as first item
             history.sites.unshift(tmpObj);  
@@ -33,17 +41,14 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
                obj.history = history.sites;
                app.storage.save({key:"tme", value:obj});
             });
-            //history.updateHpList();
          }
       },
-      updateHpList: function(){ 
-         $hpList.html('');  
-         var l =  history.sites.length,  
-         el ='';
-         for(i=0; i<l; i++){
-            el+='<li id="history_'+history.sites[i].id+'"><a href="#/'+history.sites[i].id+'"><img src="'+history.sites[i].av+'" /></a></li>';
-         }         
-         $hpList.html(el);  
+      updateHpList: function(){    
+         var context ={
+            warning:'Sorry, no recent sites yet!',
+            listItem:history.sites
+         }              
+         $hpList.html(template(context));         
          history.scrollable.refresh();
       },
       reset: function(){
@@ -54,7 +59,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
             obj.history = history.sites;
             app.storage.save({key:"tme", value:obj});
          });
-         $hpList.html(''); 
+         history.updateHpList();
       }      
    }
    return history;   

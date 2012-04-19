@@ -29,7 +29,7 @@ define(['modules/app', 'modules/routing'],function (app, router) {
 	                     title:data.response.blog.title,
 	                     description:data.response.blog.description,
 	                     totalPictures:data.response.total_posts,
-	                     avatar: 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/avatar/96' 
+	                     avatar: 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/avatar/512' 
       	            }
       				}
                   // get pictures

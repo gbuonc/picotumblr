@@ -58,7 +58,7 @@ define([
             // ------------------------------------------------------
             page.html(template(tumblr[tumblrId].siteInfo));  
             // save current site to recent array          
-            history.save(tumblrId, tumblr[tumblrId].siteInfo.avatar);                
+            history.save(tumblrId, tumblr[tumblrId]);                
             // buffer pics or init swipe
             if (tumblr[tumblrId].pictures.length < picsToLoad) {
                grid.loadPictures(tumblrId);

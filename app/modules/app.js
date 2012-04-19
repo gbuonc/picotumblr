@@ -49,8 +49,8 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          // hide initial loadbar
          $firstLoad.hide();                   
          // Init modules       
-      	require(["modules/history", "modules/favourites"], function(history, favourites){            
-            history.init();
+      	require(["modules/history", "modules/favourites"], function(history, favourites){      
+      	   history.init();
             favourites.init();      
          }); 
          // Create related sites array. Lives only in the current session

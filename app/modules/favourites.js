@@ -1,6 +1,15 @@
-define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], function(iScrl, lawnch, app){  
-   var $hpList = $('#favs >ul');
+define([ '../../assets/js/text!templates/hlist.tpl', 
+         '../../assets/js/handlebars', 
+         '../../assets/js/iscroll', 
+         '../../assets/js/lawnchair', 
+         'modules/app'], 
+   function(listTpl, handlebars, iScrl, lawnch, app){  
+   var $hpList = $('#favs');
    var btnFav = $('#topBar .btnFav');
+    // handlebars template  
+   var source = $(listTpl).html();
+   var template = Handlebars.compile(source); 
+   
    var favourites={
       scrollable : new iScroll('favs'),
       init: function(){   
@@ -26,7 +35,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
          el.off('click'); // detach previous click events
          if(isFav === false){
             el.html('add').on('click', function(){
-               favourites.add(tumblrId, tumblr[tumblrId].siteInfo.avatar, el);
+               favourites.add(tumblrId, tumblr[tumblrId], el);
             });            
          }else{         
             el.html('remove').on('click', function(){
@@ -34,11 +43,12 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
             });
          }          
       },
-      add: function(tumblrId, avatar, el){
+      add: function(tumblrId, site, el){
          // check already done
          tmpObj = {
             id: tumblrId,
-            av: avatar 
+            title:site.siteInfo.title,
+            av: site.siteInfo.avatar 
          }
          // add as first item
          favourites.sites.unshift(tmpObj); 
@@ -68,15 +78,13 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
          // reset button
          favourites.setButton(tumblrId, el);
       },
-      updateHpList: function(){          
-         $hpList.html('');  
-         var l =  favourites.sites.length,  
-         el ='';
-         for(i=0; i<l; i++){
-            el+='<li id="fav_'+favourites.sites[i].id+'"><a href="#/'+favourites.sites[i].id+'"><img src="'+favourites.sites[i].av+'" /></a></li>';
-         }         
-         $hpList.html(el); 
-         favourites.scrollable.refresh();
+      updateHpList: function(){  
+         var context ={
+            warning:'Sorry, no sites added to favs yet!',
+            listItem:favourites.sites
+         }               
+         $hpList.html(template(context));         
+         favourites.scrollable.refresh();    
       },
       reset: function(){
          favourites.sites.length = 0;
@@ -85,7 +93,7 @@ define(['../../assets/js/iscroll', '../../assets/js/lawnchair', 'modules/app'], 
             obj.favs = favourites.sites;
             app.storage.save({key:"tme", value:obj});
          });
-         $hpList.html(''); 
+        favourites.updateHpList();
       }      
    }
    return favourites;   

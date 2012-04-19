@@ -26,6 +26,11 @@ function (
    });
    var home ={
       init:function(){
+         var $tabs = $('#hpTabs > ul li');
+         $($tabs).on('click', function(){
+            $tabs.removeClass('active');
+            $(this).addClass('active');            
+         });
          // refresh all scrollables in hp
          history.updateHpList();
          favourites.updateHpList();
