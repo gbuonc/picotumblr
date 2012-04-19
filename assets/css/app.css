@@ -148,7 +148,7 @@ button{
    line-height: 54px;
    font-size: 14px;
    margin:2px auto;
-   background-color: #2d2b29;
+   background-color: #e93430;
    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
    -webkit-background-size: 10px 10px;   
    -webkit-transform: translate3d(0, 0, 0);  
@@ -244,6 +244,7 @@ text-transform:uppercase;
    position: relative;
    top:-40px;
 }
+
 #hpTabs li{
    display: inline-block;
 }
@@ -266,6 +267,11 @@ text-transform:uppercase;
    top:40px;
    text-align: left;
    display: none;
+}
+.hpList .warning{
+   font-size:15px;
+   text-align:center;
+   margin-top:35px;
 }
 .active .hpList{
    display: block;
@@ -298,6 +304,7 @@ text-transform:uppercase;
    text-transform: none;   
    padding:0;
    white-space:normal;
+   text-decoration:none;
 /*   background: transparent url('../gfx/bg2.png') repeat;*/
 }
 #hpTabs .hpList ul li a h2{

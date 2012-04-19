@@ -26,8 +26,11 @@ function (
    });
    var home ={
       init:function(){
-         var $tabs = $('#hpTabs > ul li');
+         var $tabs = $('#hpTabs > ul li'), 
+         $hpTabs=$('#hpTabs');
          $($tabs).on('click', function(){
+            var kl = $(this).attr('id');
+            $hpTabs.attr('class', kl);
             $tabs.removeClass('active');
             $(this).addClass('active');            
          });
