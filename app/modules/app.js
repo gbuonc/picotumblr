@@ -1,4 +1,13 @@
 define(['../../assets/js/lawnchair'], function(Lawnch){  
+   
+   // Array Remove - By John Resig (MIT Licensed)
+   Array.prototype.remove = function(from, to) {
+     var rest = this.slice((to || from) + 1 || this.length);
+     this.length = from < 0 ? this.length + from : from;
+     return this.push.apply(this, rest);
+   };
+   
+   var $mainApp = $('#mainApp'),
    $firstLoad = $('#firstLoad');
    loadbar = $('#loadbarWrapper');
    var app = {
@@ -19,6 +28,13 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          },
       },
       init: function(){     
+         // ***************************  
+         // show web layout for desktop debugging purpose
+         var ua = (navigator.userAgent.toLowerCase().match('ipod|iphone|android') ? 'mobile' : 'web');
+         if(ua === 'web'){
+            $mainApp.addClass('window');
+         }; 
+         // ***************************  
          // detect if webapp is saved in home
       	if(window.navigator.standalone){
       		$('body').bind('touchmove', function(e){ 
@@ -36,25 +52,25 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
                   history:[],
                   favs:[]            
                }; 
-               app.storage.save({key:"tme",value:list}, function(){}); 
+              app.storage.save({key:"tme",value:list}, function(){}); 
             }
          });  
-         // set start URL  
+      	//set start URL  
       	require(["modules/routing"], function(router){            
             router.init();  
-            if(router.getRoute() ==''){  
+               if(router.getRoute() ==''){  
                location.href='#/';  
             };          
          });   
-         // hide initial loadbar
-         $firstLoad.hide();                   
-         // Init modules       
+      	//hide initial loadbar
+      	$firstLoad.hide();                   
+      	//Init modules       
       	require(["modules/history", "modules/favourites"], function(history, favourites){      
       	   history.init();
-            favourites.init();      
-         }); 
-         // Create related sites array. Lives only in the current session
-         app.relatedSites =[];
+      	   favourites.init();      
+      	}); 
+      	//Create related sites array. Lives only in the current session
+      	app.relatedSites =[];
       }, 
       showLoadbar: function(){         
          loadbar.addClass('visible');

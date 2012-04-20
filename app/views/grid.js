@@ -40,10 +40,10 @@ define([
          app.current.reset(tumblrId);
          content.html('');    
          // show loadbar (just in case)
-         app.showLoadbar('mainApp');     
+         app.showLoadbar('mainApp');              
          tumblr.getData(tumblrId, function () {
             // get total pictures and calculate total pages
-            totalPictures = tumblr[tumblrId].siteInfo.totalPictures;
+            totalPictures = tumblr.sites[tumblrId].siteInfo.totalPictures;
             totalPages = (totalPictures % ppp === 0) ? totalPictures / ppp : Math.floor((totalPictures / ppp) + 1);
             // calculate how many pics to buffer
             picsToLoad =(totalPictures< buffer)?totalPictures:buffer;      
@@ -53,14 +53,12 @@ define([
             // ------------------------------------------------------
             // just showing a usable grid when debugging via desktop
             if(!$.os.touch){
-               tumblr[tumblrId].siteInfo.overflow='overflow:hidden';
+               tumblr.sites[tumblrId].siteInfo.overflow='overflow:hidden';
             }           
             // ------------------------------------------------------
-            page.html(template(tumblr[tumblrId].siteInfo));  
-            // save current site to recent array          
-            history.save(tumblrId, tumblr[tumblrId]);                
+            page.html(template(tumblr.sites[tumblrId].siteInfo));                         
             // buffer pics or init swipe
-            if (tumblr[tumblrId].pictures.length < picsToLoad) {
+            if (tumblr.sites[tumblrId].pictures.length < picsToLoad) {
                grid.loadPictures(tumblrId);
             } else {               
                grid.initSwipeView(tumblrId);
@@ -69,15 +67,15 @@ define([
       },      
       loadPictures: function (tumblrId) {
          tumblr.getData(tumblrId, function () {
-            if (tumblr[tumblrId].pictures.length < picsToLoad) {
+            if (tumblr.sites[tumblrId].pictures.length < picsToLoad) {
                grid.loadPictures(tumblrId);
             } else {
                grid.initSwipeView(tumblrId);
             }
          });
       },      
-      initSwipeView: function (tumblrId, totalPictures) {         
-         var slides = tumblr[tumblrId].pictures;         
+      initSwipeView: function (tumblrId, totalPictures) { 
+         var slides = tumblr.sites[tumblrId].pictures;         
          // destroy previews grids
          if(grid.gallery){
             grid.gallery.destroy();
@@ -100,18 +98,16 @@ define([
          
          // go to initial page (wait for headerInfo animation to end)
          var go = window.setTimeout(function(){
-           grid.gotoPage(0); 
+           grid.gotoPage(0, tumblrId); 
            window.clearTimeout(go);
          }, 400);
-         
-         
          // render on flip
          gridGallery.onFlip(function () {
             // store current page in grid
             app.current.gridPage = gridGallery.pageIndex;                  
             var el, upcoming, i,
             picsLoaded = (gridGallery.pageIndex*ppp)+ppp,
-            pagePreloaded = (tumblr[tumblrId].pictures.length % ppp === 0) ? tumblr[tumblrId].pictures.length / ppp : Math.floor((tumblr[tumblrId].pictures.length / ppp) + 1);
+            pagePreloaded = (tumblr.sites[tumblrId].pictures.length % ppp === 0) ? tumblr.sites[tumblrId].pictures.length / ppp : Math.floor((tumblr.sites[tumblrId].pictures.length / ppp) + 1);
             currentPage = parseInt(gridGallery.pageIndex+1, 10);              
             // load more pics when scrolling forward
             if (gridGallery.direction === 'forward') { 
@@ -135,7 +131,7 @@ define([
                      }
                   return ret;
                   });
-                  $(gridGallery.masterPages[i]).html(template(tumblr[tumblrId]));  
+                  $(gridGallery.masterPages[i]).html(template(tumblr.sites[tumblrId]));  
                   // if first page loaded fadein thumbnail, otherwise show them immediatly
                   if(gridGallery.totalSwipes === 0){
                      $('#swipeview-masterpage-1 .thumbnails > a').each(function(i, el){
@@ -174,11 +170,15 @@ define([
          });
          grid.gallery = gridGallery;
       },
-      gotoPage: function(page){
+      gotoPage: function(page, tumblrId){  
+         // save current site to recent array 
+         console.log(tumblr.sites[tumblrId]);
+         history.save(tumblrId, tumblr.sites[tumblrId]);       
          setTimeout(function(){
             grid.gridGallery.goToPage(page);
          },0);
-      }      
+      }
+        
    }
    return grid;
 });

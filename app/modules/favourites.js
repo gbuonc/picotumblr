@@ -4,7 +4,7 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          '../../assets/js/lawnchair', 
          'modules/app'], 
    function(listTpl, handlebars, iScrl, lawnch, app){  
-   var $hpList = $('#favs');
+   var $hpList = $('#favs .scrollWrapper');
    var btnFav = $('#topBar .btnFav');
     // handlebars template  
    var source = $(listTpl).html();
@@ -35,7 +35,7 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          el.off('click'); // detach previous click events
          if(isFav === false){
             el.html('add').on('click', function(){
-               favourites.add(tumblrId, tumblr[tumblrId], el);
+               favourites.add(tumblrId, tumblr.sites[tumblrId], el);
             });            
          }else{         
             el.html('remove').on('click', function(){
@@ -84,7 +84,9 @@ define([ '../../assets/js/text!templates/hlist.tpl',
             listItem:favourites.sites
          }               
          $hpList.html(template(context));         
-         favourites.scrollable.refresh();    
+         setTimeout(function () {
+		      favourites.scrollable.refresh();
+	      }, 0)   
       },
       reset: function(){
          favourites.sites.length = 0;

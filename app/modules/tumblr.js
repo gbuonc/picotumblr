@@ -3,13 +3,14 @@ define(['modules/app', 'modules/routing'],function (app, router) {
    var apiKey = 'XlCJ1kpxkFjgblfrnXXm6LE1hfYcmf56jaru6PynxidzEfFJVe';
    var $hiddenPreload = $('#hiddenPreload');
    tumblr ={
+      sites:{},
       getData: function(tumblrId, callback){
 		// get current site		
 		tumblrId = tumblrId || router.getRoute(0);
 		// create new empty object or add to existing one
-		tumblr[tumblrId]=tumblr[tumblrId] ||{};
-		tumblr[tumblrId].pictures = tumblr[tumblrId].pictures ||[];
-		var offset= tumblr[tumblrId].pictures.length || 0;
+		tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
+		tumblr.sites[tumblrId].pictures = tumblr.sites[tumblrId].pictures ||[];
+		var offset= tumblr.sites[tumblrId].pictures.length || 0;
       urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';
 		urlToGet +='offset='+offset+'&limit=20&api_key='+apiKey+'&jsonp=?';
      	$.ajax({
@@ -24,8 +25,8 @@ define(['modules/app', 'modules/routing'],function (app, router) {
                      return;                                                         
                   }
 				      // populate site info object (first time only)
-      				if(!tumblr[tumblrId].siteInfo){
-      					tumblr[tumblrId].siteInfo ={
+      				if(!tumblr.sites[tumblrId].siteInfo){
+      					tumblr.sites[tumblrId].siteInfo ={
 	                     title:data.response.blog.title,
 	                     description:data.response.blog.description,
 	                     totalPictures:data.response.total_posts,
@@ -41,7 +42,7 @@ define(['modules/app', 'modules/routing'],function (app, router) {
       					var full = picts[i].photos[0].alt_sizes[0]; 
       					full = full.width <= 500 ? full : picts[i].photos[0].alt_sizes[1];
       					// ...
-      					tumblr[tumblrId].pictures[i+offset]={      					   
+      					tumblr.sites[tumblrId].pictures[i+offset]={      					   
       					   thumb:picts[i].photos[0].alt_sizes[thumbnail].url,
       						fullsize:full.url,		
       						caption:picts[i].caption         						

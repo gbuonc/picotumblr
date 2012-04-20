@@ -3,7 +3,7 @@ define(['../../assets/js/text!templates/hlist.tpl',
          'modules/app', 
          '../../assets/js/iscroll'], 
    function(listTpl, handlebars, app, iScrl){  
-   var $hpList = $('#rels');
+   var $hpList = $('#rels .scrollWrapper');
    // handlebars template  
    var source = $(listTpl).html();
    var template = Handlebars.compile(source);
@@ -18,11 +18,10 @@ define(['../../assets/js/text!templates/hlist.tpl',
             if(notInArray){
                var tmpObj = {
                   id: tumblrId,
-                  title:tumblr[tumblrId].siteInfo.title,
-                  av: tumblr[tumblrId].siteInfo.avatar                
+                  title:tumblr.sites[tumblrId].siteInfo.title,
+                  av: tumblr.sites[tumblrId].siteInfo.avatar                
                }
-               app.relatedSites.push(tmpObj);     
-      
+               app.relatedSites.push(tmpObj);   
             }                            
          });         
       },
@@ -32,7 +31,9 @@ define(['../../assets/js/text!templates/hlist.tpl',
             listItem:app.relatedSites
          }              
          $hpList.html(template(context));         
-         relatedSites.scrollable.refresh();
+         setTimeout(function () {
+		      relatedSites.scrollable.refresh();
+	      }, 0) 
       },
       clear: function(){
          app.relatedSites.length = 0;

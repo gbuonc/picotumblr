@@ -30,19 +30,27 @@
 	            <ul>
 	               <li id="recentTab" class="active">
 	                  <button>Recent</button>
-	                  <div id="history" class="hpList"><ul></ul></div>
+	                  <div id="history" class="hpList">
+	                     <div class="scrollWrapper"></div>
+                     </div>
+                     <button class="btnClear">Clear all</button>
 	               </li>
 	               <li id="favsTab">
 	                  <button>Favs</button>
-	                  <div id="favs" class="hpList"><ul></ul></div>
+	                  <div id="favs" class="hpList">
+	                     <div class="scrollWrapper"></div> 	                    
+                     </div>
+                     <button class="btnClear">Clear all</button>
 	               </li>
 	               <li id="exploreTab">
 	                  <button>Explore</button>
-	                  <div id="rels" class="hpList"><ul></ul></div>
+	                  <div id="rels" class="hpList">
+	                     <div class="scrollWrapper"></div>
+                     </div>
+                     <button class="btnClear">Clear all</button>
 	               </li>
-	            </ul>	            
-	         </div>
-	         
+	            </ul>	   	                        
+	         </div>	         
 			</div> 
 	   </div>	
 	   <!-- grid view :::::::::::::::::::::::::::::: -->
@@ -70,13 +78,12 @@
 		</div>
 	</div>	
 	<script>	  
-	   require.config({baseUrl: "app"});
+	  require.config({baseUrl: "app"});
 	   require(['../assets/js/zepto'], function(){	      
 	      require(['modules/app'], function(app){
             app.init();
          });
 	   });
-      
    </script>
 </body>
 </html>

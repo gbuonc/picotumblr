@@ -37,7 +37,7 @@ function (  detailTpl,
          // reaching this page I suppose data has already been loaded in the previous view.  
       	var totalPictures;  	      	      	
       	if(app.current.tumblrId){
-      	   totalPictures = tumblr[tumblrId].siteInfo.totalPictures;
+      	   totalPictures = tumblr.sites[tumblrId].siteInfo.totalPictures;
       	   detail.initSwipeView(tumblrId, totalPictures, startPage);      	   
       	}else{
       	   // but if I land here directly then redirect to grid view
@@ -47,7 +47,7 @@ function (  detailTpl,
       },      
       
       initSwipeView: function(tumblrId, totalPictures, startPage){   
-         var slides = tumblr[tumblrId].pictures,
+         var slides = tumblr.sites[tumblrId].pictures,
          startPage = parseInt(startPage, 10);         
          // destroy previews detailGalleries
          if(detail.gallery){
@@ -93,7 +93,7 @@ function (  detailTpl,
             }
             // store landing page in grid
             app.current.gridPage = Math.floor(detailGallery.pageIndex/ppp); 
-            var loadedPictures = tumblr[tumblrId].pictures.length; 
+            var loadedPictures = tumblr.sites[tumblrId].pictures.length; 
           	var el, upcoming, i;  
           	if (detailGallery.direction === 'forward') { 
                detailGallery.totalSwipes+=1;  

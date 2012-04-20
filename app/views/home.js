@@ -28,11 +28,12 @@ function (
       init:function(){
          var $tabs = $('#hpTabs > ul li'), 
          $hpTabs=$('#hpTabs');
+         // switch tabs
          $($tabs).on('click', function(){
             var kl = $(this).attr('id');
             $hpTabs.attr('class', kl);
             $tabs.removeClass('active');
-            $(this).addClass('active');            
+            $(this).addClass('active');      
          });
          // refresh all scrollables in hp
          history.updateHpList();

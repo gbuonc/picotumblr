@@ -12,14 +12,6 @@ define([
       detailView) {             
    var $mainApp = $('#mainApp'),
    $searchInput = $('#tid');
-   
-   // ***************************  
-   // show web layout for desktop debugging purpose
-   var ua = (navigator.userAgent.toLowerCase().match('ipod|iphone|android') ? 'mobile' : 'web');
-   if(ua === 'web'){
-      $mainApp.addClass('window');
-   }; 
-   // ***************************  
    // ROUTING
    var router = Router({
       '/':{
@@ -43,7 +35,7 @@ define([
             if(app.current.tumblrId === tumblrId){ 
                   // if site already loaded simply switch back and change current page view without reinitialising     
                   app.hideLoadbar();
-                  gridView.gotoPage(app.current.gridPage);                      
+                  gridView.gotoPage(app.current.gridPage, tumblrId);                      
             }else{
                // if new site reinitialise gallery                   
                gridView.init(tumblrId);                
