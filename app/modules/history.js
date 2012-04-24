@@ -28,7 +28,6 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          });         
       },   
       save: function(tumblrId, site){ 
-         console.log('saving');    
          // get an array of id values (underscore.js)
          var temp = $(history.sites).pluck('id');            
          // save only if not already present in temp array
@@ -55,7 +54,9 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          var pos=temp.indexOf(el);  
          // remove it via prototype (in app.js) 
          history.sites.remove(pos);       
-         history.store();                  
+         history.store();
+         // clear previously loaded data
+         //tumblr.sites[el]={};
          // remove element
          var $elToRemove= $hpList.find('li').eq(pos);         
          $elToRemove.animate({ opacity: 0}, 300, 'ease-in-out', function(){            

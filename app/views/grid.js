@@ -40,8 +40,8 @@ define([
          app.current.reset(tumblrId);
          content.html('');    
          // show loadbar (just in case)
-         app.showLoadbar('mainApp');              
-         tumblr.getData(tumblrId, function () {
+         app.showLoadbar('mainApp');           
+         tumblr.getData(tumblrId,{},function () {
             // get total pictures and calculate total pages
             totalPictures = tumblr.sites[tumblrId].siteInfo.totalPictures;
             totalPages = (totalPictures % ppp === 0) ? totalPictures / ppp : Math.floor((totalPictures / ppp) + 1);
@@ -66,7 +66,7 @@ define([
          });
       },      
       loadPictures: function (tumblrId) {
-         tumblr.getData(tumblrId, function () {
+         tumblr.getData(tumblrId,{}, function () {
             if (tumblr.sites[tumblrId].pictures.length < picsToLoad) {
                grid.loadPictures(tumblrId);
             } else {
@@ -172,7 +172,6 @@ define([
       },
       gotoPage: function(page, tumblrId){  
          // save current site to recent array 
-         console.log(tumblr.sites[tumblrId]);
          history.save(tumblrId, tumblr.sites[tumblrId]);       
          setTimeout(function(){
             grid.gridGallery.goToPage(page);

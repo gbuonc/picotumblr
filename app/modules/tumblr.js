@@ -4,7 +4,11 @@ define(['modules/app', 'modules/routing'],function (app, router) {
    var $hiddenPreload = $('#hiddenPreload');
    tumblr ={
       sites:{},
-      getData: function(tumblrId, callback){
+      getData: function(tumblrId, options, callback){
+      
+      var config = {showErrors : true};
+      $.extend(config, options);
+      console.log(config.showErrors);
 		// get current site		
 		tumblrId = tumblrId || router.getRoute(0);
 		// create new empty object or add to existing one
@@ -21,7 +25,9 @@ define(['modules/app', 'modules/routing'],function (app, router) {
                   // --------------------------------
                   if(data.response.total_posts === 0){   
                      app.hideLoadbar();
-                     app.errors.showAlert(app.errors.message.noPictures);    
+                     if(config.showErrors){
+                        app.errors.showAlert(app.errors.message.noPictures);
+                     }                         
                      return;                                                         
                   }
 				      // populate site info object (first time only)
@@ -48,26 +54,28 @@ define(['modules/app', 'modules/routing'],function (app, router) {
       						caption:picts[i].caption         						
          				}					
       				} 		
-   				   if(callback){
-   				      callback();
-   				   }
+   				   if(callback) callback();   				   
                  // ----------------------------------          
-               }else{                  
-                  if(app.errors.message[status]){
+               }else{     
+                  if(config.showErrors){
+                     if(app.errors.message[status]){
                      // show error code
                      app.hideLoadbar();
                      app.errors.showAlert(app.errors.message[status]);
-                  }else{
-                     // generic error   
-                     app.hideLoadbar();       
-                     app.errors.showAlert(app.errors.message.generic);		
-                  }  
+                     }else{
+                        // generic error   
+                        app.hideLoadbar();       
+                        app.errors.showAlert(app.errors.message.generic);		
+                     }  
+                  }    
                }               
             },
             error: function(xhr, type) {
                // generic error  
-               app.hideLoadbar();           
-               app.errors.showAlert(app.errors.message.generic);      
+               if(app.errors.message[status]){
+                  app.hideLoadbar();           
+                  app.errors.showAlert(app.errors.message.generic);    
+               }  
            }
          });
       }

@@ -10,7 +10,7 @@ define(['../../assets/js/text!templates/hlist.tpl',
    var relatedSites ={   
       scrollable : new iScroll('rels'),   
       add: function(tumblrId){
-         tumblr.getData(tumblrId, function(){
+         tumblr.getData(tumblrId,{showErrors: false}, function(){
             // get an array of id values (underscore.js)
             var temp = $(app.relatedSites).pluck('id');     
             // save only if not already present in temp array
