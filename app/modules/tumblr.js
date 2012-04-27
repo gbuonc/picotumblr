@@ -8,7 +8,6 @@ define(['modules/app', 'modules/routing'],function (app, router) {
       
       var config = {showErrors : true};
       $.extend(config, options);
-      console.log(config.showErrors);
 		// get current site		
 		tumblrId = tumblrId || router.getRoute(0);
 		// create new empty object or add to existing one
@@ -54,7 +53,7 @@ define(['modules/app', 'modules/routing'],function (app, router) {
       						caption:picts[i].caption         						
          				}					
       				} 		
-   				   if(callback) callback();   				   
+   				   if(callback) callback(tumblrId);   				   
                  // ----------------------------------          
                }else{     
                   if(config.showErrors){

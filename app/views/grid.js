@@ -5,7 +5,7 @@ define([
    '../../assets/js/handlebars',
    '../../assets/js/swipeview',
    'modules/app',
-   'modules/history',
+   'modules/tabs',
    'modules/tumblr'], 
    function (
       infoTpl,
@@ -13,7 +13,7 @@ define([
       handlebars,
       swipe,
       app,
-      history,
+      tabs,
       tumblr) {   
          
    // SET ONCE : page elements
@@ -172,7 +172,7 @@ define([
       },
       gotoPage: function(page, tumblrId){  
          // save current site to recent array 
-         history.save(tumblrId, tumblr.sites[tumblrId]);       
+         tabs.add(tumblrId, tumblr.sites[tumblrId], 'history');      
          setTimeout(function(){
             grid.gridGallery.goToPage(page);
          },0);

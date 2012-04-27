@@ -257,6 +257,22 @@ text-transform:uppercase;
    padding:2px 8px;
    margin:0 8px;
 }
+#hpTabs li .tabBtn{   
+   position: relative;
+   padding-bottom: 16px;
+}
+#hpTabs li.active .tabBtn:after{
+   content:'';
+   position: absolute;
+   left:50%;
+   margin-left: -8px;
+   bottom:0;
+   width: 0;
+   height: 0;
+   border-left: 8px solid transparent;
+   border-right: 8px solid transparent;
+   border-bottom: 12px solid #494744;
+}
 #hpTabs li.active button{
    color:#e93430;
 }
@@ -322,17 +338,18 @@ text-transform:uppercase;
    left: 5px;
    text-shadow: 1px 1px 1px #333;   
 }
-#hpTabs .hpList ul li button{
+#hpTabs .hpList ul li button {
    position: absolute;
-   top:-2px;
-   right:4px;
+   top: 0px;
+   right: 0px;
    font-size: 15px;
    font-family: Helvetica, sans-serif;
    line-height: 1;
-   padding:2px 10px;
+   padding: 2px 4px;
    font-weight: bold;
-   margin:0;
-   background-color: #333130;
+   margin: 0;
+   background-color: #E93430;
+   color: white;
 }
 #hpTabs .hpList ul li span{
    display: none;

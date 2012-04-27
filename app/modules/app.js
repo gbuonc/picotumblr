@@ -1,5 +1,5 @@
 define(['../../assets/js/lawnchair'], function(Lawnch){  
-   
+      
    // Array Remove - By John Resig (MIT Licensed)
    Array.prototype.remove = function(from, to) {
      var rest = this.slice((to || from) + 1 || this.length);
@@ -14,7 +14,10 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       config:{
          ppp: 20, // pics per page
          buffer:80 // pics to preload
-      },            
+      },  
+      history:{},
+      favs:{}, 
+      rels:{},            
       current:{
          tumblrId:null,
          gridPage:0,
@@ -50,7 +53,8 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             if(obj === null){
                var list = {
                   history:[],
-                  favs:[]            
+                  favs:[],
+                  rels:[]          
                }; 
               app.storage.save({key:"tme",value:list}, function(){}); 
             }
@@ -65,12 +69,9 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       	//hide initial loadbar
       	$firstLoad.hide();                   
       	//Init modules       
-      	require(["modules/history", "modules/favourites"], function(history, favourites){      
-      	   history.init();
-      	   favourites.init();      
-      	}); 
-      	//Create related sites array. Lives only in the current session
-      	app.relatedSites =[];
+      	require(['modules/tabs'], function(tabs){    
+      	   tabs.init();      	  
+      	});       	
       }, 
       showLoadbar: function(){         
          loadbar.addClass('visible');

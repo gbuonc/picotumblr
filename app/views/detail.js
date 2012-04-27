@@ -4,7 +4,7 @@ define([ '../../assets/js/text!templates/detail.tpl',
          '../../assets/js/slidein',
          '../../assets/js/handlebars',
          'modules/app',
-         'modules/favourites',
+         'modules/tabs',
          'modules/tumblr',
          'modules/captions'], 
 function (  detailTpl, 
@@ -12,7 +12,7 @@ function (  detailTpl,
             slideIn,
             handlebars,
             app,
-            favourites,
+            tabs,
             tumblr,
             captionSlide
 ) {     
@@ -43,9 +43,29 @@ function (  detailTpl,
       	   // but if I land here directly then redirect to grid view
       	   $('#detail').removeClass('current');
       	   location.href='#/'+tumblrId;
-      	}          	  	 	
+      	}      	          	  	 	
+      },
+      setAddRemoveBtn: function(tumblrId){	
+         // get an array of id values
+         var temp = $(app.favs.sites).pluck('id');        
+         var isFav = temp.indexOf(tumblrId);   
+         $btnFav.off('click'); // detach previous click events         
+         if(isFav === -1){
+            $btnFav.html('add').on('click', function(){
+               tabs.add(tumblrId, tumblr.sites[tumblrId], 'favs', function(){
+                  app.showMessage(tmpObj.id+' added to favs!');
+                  detail.setAddRemoveBtn(tumblrId);                  
+               });
+            });            
+         }else{         
+            $btnFav.html('remove').on('click', function(){
+               tabs.remove(tumblrId, 'favs', function(){                  
+                  app.showMessage('This site has been removed from your favs!');
+                  detail.setAddRemoveBtn(tumblrId);                  
+               });
+            });
+         }    
       },      
-      
       initSwipeView: function(tumblrId, totalPictures, startPage){   
          var slides = tumblr.sites[tumblrId].pictures,
          startPage = parseInt(startPage, 10);         
@@ -67,7 +87,7 @@ function (  detailTpl,
          });   
          
          // init add/remove favourites button
-         favourites.setButton(tumblrId, $btnFav);     
+         detail.setAddRemoveBtn(tumblrId);     
          
          // set caption 
          captionSlide.init();  

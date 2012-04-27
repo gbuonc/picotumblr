@@ -1,4 +1,4 @@
-define([ '../../assets/js/iscroll', 'modules/related'], function (iScr, relatedSites) {  
+define([ '../../assets/js/iscroll', 'modules/tabs'], function (iScr, tabs) {  
    captionButtons =$('#tmblButtons'),
    handle = $('#detailCaption .handle'),
    detailCaption = $('#detailCaption'),
@@ -38,8 +38,11 @@ define([ '../../assets/js/iscroll', 'modules/related'], function (iScr, relatedS
                   tumblrRef[i] = caption.pattern.exec(tumblrRef[i]); 
                   tumblrRef[i] = tumblrRef[i][0].replace("http://", "");  
                   buttons+='<a href="#/'+tumblrRef[i]+'">'+tumblrRef[i]+'</a>'; 
-                  // add to related sites array    
-                  relatedSites.add(tumblrRef[i]);
+                  // add to related sites array 
+                  tumblr.getData(tumblrRef[i],{showErrors: false}, function(tumblrId){  
+                     tabs.add(tumblrId, tumblr.sites[tumblrId], 'rels');
+                  });
+                  //relatedSites.add(tumblrRef[i]);
                }
             }                                         
             // add buttons to caption  

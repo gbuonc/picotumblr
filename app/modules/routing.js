@@ -1,12 +1,14 @@
 define([
    '../../assets/js/director', 
    'modules/app', 
+   'modules/tabs',
    'views/home', 
    'views/grid', 
    'views/detail'], 
    function (
       director, 
       app, 
+      tabs,
       homeView, 
       gridView, 
       detailView) {             
@@ -18,7 +20,8 @@ define([
          on: function(){  
             // refresh history list
             setTimeout(function(){
-               homeView.init();            
+            //homeView.init();  
+            tabs.writeTabs();         
             }, 0);            
          	view.currentBackAnim = 'slidedown';
             view.changeView('home', 'slideup');

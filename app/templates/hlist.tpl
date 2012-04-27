@@ -5,7 +5,7 @@
    {{#if listItem}}
    <ul>
    {{#each listItem}}   
-   <li style="background: url('{{this.av}}');">
+   <li class="{{this.id}}" style="background: #333130 url('{{this.av}}');">
       <a href="#/{{this.id}}">
       <h2>{{{this.title}}}</h2>
       </a>    
