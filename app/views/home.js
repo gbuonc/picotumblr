@@ -6,7 +6,7 @@ function (
    app, 
    tumblr,
    tabs) {     
-        
+   
    var form = $('.searchForm'); 
    // check submitted value
    form.bind('submit', function(e){

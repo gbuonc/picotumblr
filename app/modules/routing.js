@@ -17,16 +17,11 @@ define([
    $grid = $('#grid');
    // ROUTING
    var router = Router({
-      '/':{
-         before: function(){
-            // refresh hp tabs list
-            setTimeout(function(){
-               //tabs.writeTabs();         
-            }, 0);
-         },
+      '/':{         
          on: function(){ 
          	view.currentBackAnim = 'slidedown';
             view.changeView('home', 'slideup');
+            tabs.updateScrollable();
          },
          after: function(){
             setTimeout(function(){

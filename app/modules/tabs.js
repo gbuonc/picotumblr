@@ -120,7 +120,12 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          $.each(tabs.list, function(index, tab){
            tabs.updateHpList(tab);
          })
-      },    
+      },
+      updateScrollable: function(){
+         $.each(tabs.list, function(index, tab){
+            tabs.hpTabs[tab].scrollable.refresh();
+         }) 
+      },   
       updateHpList: function(tab){
          if(app[tab].sites.length === 0){
             tabs.hpTabs[tab].$resetBtn.hide();
