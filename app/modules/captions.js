@@ -42,7 +42,6 @@ define([ '../../assets/js/iscroll', 'modules/tabs'], function (iScr, tabs) {
                   tumblr.getData(tumblrRef[i],{showErrors: false}, function(tumblrId){  
                      tabs.add(tumblrId, tumblr.sites[tumblrId], 'rels');
                   });
-                  //relatedSites.add(tumblrRef[i]);
                }
             }                                         
             // add buttons to caption  

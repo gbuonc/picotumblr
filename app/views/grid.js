@@ -37,8 +37,7 @@ define([
    
    var grid = {
       init: function (tumblrId) {
-         app.current.reset(tumblrId);
-         content.html('');    
+         app.current.reset(tumblrId); 
          // show loadbar (just in case)
          app.showLoadbar('mainApp');           
          tumblr.getData(tumblrId,{},function () {
@@ -177,7 +176,6 @@ define([
             grid.gridGallery.goToPage(page);
          },0);
       }
-        
    }
    return grid;
 });

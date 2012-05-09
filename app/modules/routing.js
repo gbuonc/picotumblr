@@ -13,16 +13,18 @@ define([
       gridView, 
       detailView) {             
    var $mainApp = $('#mainApp'),
-   $searchInput = $('#tid');
+   $searchInput = $('#tid'),
+   $grid = $('#grid');
    // ROUTING
    var router = Router({
       '/':{
-         on: function(){  
-            // refresh history list
+         before: function(){
+            // refresh hp tabs list
             setTimeout(function(){
-            //homeView.init();  
-            tabs.writeTabs();         
-            }, 0);            
+               //tabs.writeTabs();         
+            }, 0);
+         },
+         on: function(){ 
          	view.currentBackAnim = 'slidedown';
             view.changeView('home', 'slideup');
          },
@@ -40,7 +42,8 @@ define([
                   app.hideLoadbar();
                   gridView.gotoPage(app.current.gridPage, tumblrId);                      
             }else{
-               // if new site reinitialise gallery                   
+               // if new site reinitialise gallery   
+               $grid.html('');               
                gridView.init(tumblrId);                
             } 
          },

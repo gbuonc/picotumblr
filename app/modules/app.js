@@ -1,15 +1,11 @@
-define(['../../assets/js/lawnchair'], function(Lawnch){  
-      
+define(['../../assets/js/lawnchair'], function(Lawnch){        
    // Array Remove - By John Resig (MIT Licensed)
    Array.prototype.remove = function(from, to) {
      var rest = this.slice((to || from) + 1 || this.length);
      this.length = from < 0 ? this.length + from : from;
      return this.push.apply(this, rest);
    };
-   
-   var $mainApp = $('#mainApp'),
-   $firstLoad = $('#firstLoad');
-   loadbar = $('#loadbarWrapper');
+      
    var app = {
       config:{
          ppp: 20, // pics per page
@@ -30,12 +26,16 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       	   app.current.animation='none';
          },
       },
+      // interface elements
+      $mainApp: $('#mainApp'),
+      $loadbar: $('#loadbarWrapper'),
+      
       init: function(){     
          // ***************************  
          // show web layout for desktop debugging purpose
          var ua = (navigator.userAgent.toLowerCase().match('ipod|iphone|android') ? 'mobile' : 'web');
          if(ua === 'web'){
-            $mainApp.addClass('window');
+            app.$mainApp.addClass('window');
          }; 
          // ***************************  
          // detect if webapp is saved in home
@@ -66,18 +66,16 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
                location.href='#/';  
             };          
          });   
-      	//hide initial loadbar
-      	$firstLoad.hide();                   
-      	//Init modules       
+      	//Init tabs       
       	require(['modules/tabs'], function(tabs){    
       	   tabs.init();      	  
       	});       	
       }, 
       showLoadbar: function(){         
-         loadbar.addClass('visible');
+         app.$loadbar.addClass('visible');
       },
       hideLoadbar: function(){
-         loadbar.removeClass('visible');
+         app.$loadbar.removeClass('visible');
       },      
       errors:{
          showAlert: function(desc){

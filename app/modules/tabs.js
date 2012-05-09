@@ -91,6 +91,7 @@ define([ '../../assets/js/text!templates/hlist.tpl',
                }  
             }  
             tabs.store(tab);
+            tabs.updateHpList(tab);
             if(callback) callback();            
          }    
       },
