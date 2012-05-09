@@ -138,18 +138,7 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          }              
          tabs.hpTabs[tab].$hpList.html(template(context));
          setTimeout(function () {
-            tabs.hpTabs[tab].scrollable.refresh();            
-            //fade in when background loaded
-            // var $tabList = $('#'+tab), 
-              //             l = context.listItem.length;      
-              //             for(i=0; i<l; i++){
-              //                var tmpImg = new Image();
-              //                tmpImg.src = context.listItem[i].av;               
-              //                tmpImg.onload = function() {
-              //                console.log(i);
-              //                //$tabList.find('li.'+context.listItem[i].av).animate({opacity: 0.25}, 1, 'ease-out');
-              //                };
-              //             }            
+            tabs.hpTabs[tab].scrollable.refresh(); 
 	      }, 0)  
       },
       reset: function(tab){
