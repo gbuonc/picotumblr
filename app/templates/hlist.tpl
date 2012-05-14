@@ -7,7 +7,8 @@
    {{#each listItem}}   
    <li class="{{this.id}}"> <!-- background: #333130 url('{{this.av}}') -->
       <a href="#/{{this.id}}">
-      <h2>{{{this.title}}} <span class="pics">({{{this.tp}}} pics)</span></h2>
+      <img src="http://api.tumblr.com/v2/blog/{{this.id}}.tumblr.com/avatar/64" style="width:100%; height:auto" />
+      <h2>{{{this.title}}} <span class="pics">{{{this.tp}}} pics</span></h2>
       </a>    
       <button data-target="{{this.id}}">X</button>    			            
    </li>      

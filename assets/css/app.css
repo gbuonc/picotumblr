@@ -345,7 +345,8 @@ text-transform:uppercase;
 #hpTabs .hpList ul li a h2 .pics{
    display: block;
    font-size: 13px;
-   padding-top: 5px;
+   padding-top: 3px;
+   margin-top: 3px;
    border-top: 1px solid #fff;
 }
 #hpTabs .hpList ul li button {

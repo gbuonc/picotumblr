@@ -81,7 +81,7 @@ define([ '../../assets/js/text!templates/hlist.tpl',
                id: tumblrId,
                title:site.siteInfo.title,
                av: site.siteInfo.avatar, 
-               tp: site.siteInfo.totalPictures            
+               tp: site.siteInfo.totalPictures
             }
             // add as first item
             app[tab].sites.unshift(tmpObj);  
