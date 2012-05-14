@@ -5,9 +5,9 @@
    {{#if listItem}}
    <ul>
    {{#each listItem}}   
-   <li class="{{this.id}}" style="background: #333130 url('{{this.av}}');">
+   <li class="{{this.id}}"> <!-- background: #333130 url('{{this.av}}') -->
       <a href="#/{{this.id}}">
-      <h2>{{{this.title}}}</h2>
+      <h2>{{{this.title}}} <span class="pics">({{{this.tp}}} pics)</span></h2>
       </a>    
       <button data-target="{{this.id}}">X</button>    			            
    </li>      

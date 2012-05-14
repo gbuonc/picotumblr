@@ -33,9 +33,9 @@ define(['modules/app', 'modules/routing'],function (app, router) {
       				if(!tumblr.sites[tumblrId].siteInfo){
       					tumblr.sites[tumblrId].siteInfo ={
 	                     title:data.response.blog.title,
-	                     description:data.response.blog.description,
+	                     //description:data.response.blog.description,
 	                     totalPictures:data.response.total_posts,
-	                     avatar: 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/avatar/512' 
+	                     avatar: 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/avatar/128' 
       	            }
       				}
                   // get pictures

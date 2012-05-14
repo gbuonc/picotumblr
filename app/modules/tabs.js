@@ -47,11 +47,12 @@ define([ '../../assets/js/text!templates/hlist.tpl',
             // buttons binding
             tabs.hpTabs[tab].$clearBtn.live('click', function(){
                var item = $(this).attr('data-target');
-                  tabs.remove(item, tab);
-               });
-               tabs.hpTabs[tab].$resetBtn.live('click', function(){            
-                  tabs.reset(tab);        
-               });
+               tabs.remove(item, tab);
+            });
+            tabs.hpTabs[tab].$resetBtn.live('click', function(){            
+               tabs.reset(tab);    
+            });
+            
             // init scroller
             tabs.hpTabs[tab].scrollable = new iScroll(tab);
          })
@@ -79,7 +80,8 @@ define([ '../../assets/js/text!templates/hlist.tpl',
             tmpObj = {
                id: tumblrId,
                title:site.siteInfo.title,
-               av: site.siteInfo.avatar                
+               av: site.siteInfo.avatar, 
+               tp: site.siteInfo.totalPictures            
             }
             // add as first item
             app[tab].sites.unshift(tmpObj);  
@@ -128,9 +130,9 @@ define([ '../../assets/js/text!templates/hlist.tpl',
       },   
       updateHpList: function(tab){
          if(app[tab].sites.length === 0){
-            tabs.hpTabs[tab].$resetBtn.hide();
+         tabs.hpTabs[tab].$resetBtn.addClass('disabled');
          } else{
-            tabs.hpTabs[tab].$resetBtn.show();
+         tabs.hpTabs[tab].$resetBtn.removeClass('disabled');
          }
          var context ={            
             warning: tabs.hpTabs[tab].warning,

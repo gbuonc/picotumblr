@@ -312,9 +312,12 @@ text-transform:uppercase;
    position: relative;
    width: 130px;
    height: 72px;
-   background: #333130;
+   background-color: #e93430;
+   background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(140, 20, 20, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(140, 20, 20, .2)), color-stop(.75, rgba(140, 20, 20, .2)), color-stop(.75, transparent), to(transparent));
    margin: 0 4px;
-   background-size:cover;
+/*   background-size:cover;*/
+   -webkit-background-size: 20px 20px;   
+   -webkit-transform: translate3d(0, 0, 0); 
 }
 #hpTabs .hpList ul li a{
    display: block;
@@ -336,7 +339,14 @@ text-transform:uppercase;
    position: absolute;
    bottom: 5px;
    left: 5px;
+   width: 120px;
    text-shadow: 1px 1px 1px #333;   
+}
+#hpTabs .hpList ul li a h2 .pics{
+   display: block;
+   font-size: 13px;
+   padding-top: 5px;
+   border-top: 1px solid #fff;
 }
 #hpTabs .hpList ul li button {
    position: absolute;
@@ -364,10 +374,17 @@ text-transform:uppercase;
    color: #fff;
 }
 #hpTabs li.active .btnClear{
-      color: #fff;
+   color: #fff;
    display: block;
 }
 
+#hpTabs li.active .btnClear{
+   color: #fff;
+   display: block;
+}
+#hpTabs li.active button.disabled{
+   display: none;
+}
 /* Grid view
 ====================================================== */
 #grid{
