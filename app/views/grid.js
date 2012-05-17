@@ -14,8 +14,7 @@ define([
       swipe,
       app,
       tabs,
-      tumblr) {   
-         
+      tumblr) {            
    // SET ONCE : page elements
    var currentPage = document.getElementById('grid'),
    page = $('#grid'),
@@ -171,7 +170,7 @@ define([
       },
       gotoPage: function(page, tumblrId){  
          // save current site to recent array 
-         tabs.add(tumblrId, tumblr.sites[tumblrId], 'history');      
+         tabs.add(tumblrId, 'history');      
          setTimeout(function(){
             grid.gridGallery.goToPage(page);
          },0);

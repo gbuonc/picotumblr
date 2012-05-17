@@ -3,7 +3,7 @@
       <button class="btnBack" rel="#/">Back</button>
       <h1>{{title}}</h1>
       <img src="{{avatar}}" width="30" height="30" />
-      {{totalPictures}} pictures
+      {{totalPictures}} pictures - updated {{updated}}
    </div>
    <div class="content" id="gridContent" style="{{overflow}}"></div>
  </script>

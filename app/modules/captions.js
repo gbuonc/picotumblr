@@ -40,7 +40,7 @@ define([ '../../assets/js/iscroll', 'modules/tabs'], function (iScr, tabs) {
                   buttons+='<a href="#/'+tumblrRef[i]+'">'+tumblrRef[i]+'</a>'; 
                   // add to related sites array 
                   tumblr.getData(tumblrRef[i],{showErrors: false}, function(tumblrId){  
-                     tabs.add(tumblrId, tumblr.sites[tumblrId], 'rels');
+                     tabs.add(tumblrId, 'rels');
                   });
                }
             }                                         

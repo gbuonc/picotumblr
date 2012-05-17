@@ -74,13 +74,15 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          var temp = $(app[tab].sites).pluck('id');   
          return temp.indexOf(tumblrId);   
       },      
-      add: function(tumblrId, site, tab, callback){    
+      add: function(tumblrId, tab, callback){    
          var notInArray = tabs.posInArray(tumblrId, tab);          
          if(notInArray === -1){
+            var site = tumblr.sites[tumblrId];
             tmpObj = {
                id: tumblrId,
                title:site.siteInfo.title,
                av: site.siteInfo.avatar, 
+               updated: site.siteInfo.updated, 
                tp: site.siteInfo.totalPictures
             }
             // add as first item

@@ -1,22 +1,21 @@
 // tumblr
-define(['modules/app', 'modules/routing'],function (app, router) {
+define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom, app, router) {
    var apiKey = 'XlCJ1kpxkFjgblfrnXXm6LE1hfYcmf56jaru6PynxidzEfFJVe';
    var $hiddenPreload = $('#hiddenPreload');
    tumblr ={
       sites:{},
-      getData: function(tumblrId, options, callback){
-      
-      var config = {showErrors : true};
-      $.extend(config, options);
-		// get current site		
-		tumblrId = tumblrId || router.getRoute(0);
-		// create new empty object or add to existing one
-		tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
-		tumblr.sites[tumblrId].pictures = tumblr.sites[tumblrId].pictures ||[];
-		var offset= tumblr.sites[tumblrId].pictures.length || 0;
-      urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';
-		urlToGet +='offset='+offset+'&limit=20&api_key='+apiKey+'&jsonp=?';
-     	$.ajax({
+      getData: function(tumblrId, options, callback){      
+         var config = {showErrors : true};
+         $.extend(config, options);
+   		// get current site		
+   		tumblrId = tumblrId || router.getRoute(0);
+   		// create new empty object or add to existing one
+   		tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
+   		tumblr.sites[tumblrId].pictures = tumblr.sites[tumblrId].pictures ||[];
+   		var offset= tumblr.sites[tumblrId].pictures.length || 0;
+         urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';
+   		urlToGet +='offset='+offset+'&limit=20&api_key='+apiKey+'&jsonp=?';
+        	$.ajax({
            url: urlToGet,            
            success: function(data) { 
                var status = data.meta.status;
@@ -28,16 +27,19 @@ define(['modules/app', 'modules/routing'],function (app, router) {
                         app.errors.showAlert(app.errors.message.noPictures);
                      }                         
                      return;                                                         
-                  }
+                  }    
 				      // populate site info object (first time only)
       				if(!tumblr.sites[tumblrId].siteInfo){
       					tumblr.sites[tumblrId].siteInfo ={
 	                     title:data.response.blog.title,
 	                     //description:data.response.blog.description,
+	                     updated: moment(moment.unix(data.response.blog.updated)._d).fromNow(),
 	                     totalPictures:data.response.total_posts,
 	                     avatar: 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/avatar/128' 
       	            }
       				}
+      				// check  last updated time (human readable)
+      				tumblr.sites[tumblrId].siteInfo.updated = moment(moment.unix(data.response.blog.updated)._d).fromNow();
                   // get pictures
                   var picts=data.response.posts; 
       				for(i=0; i< picts.length; i++){
@@ -77,7 +79,30 @@ define(['modules/app', 'modules/routing'],function (app, router) {
                }  
            }
          });
-      }
+      },
+      checkUpdates: function(tumblrId, callback){
+         var urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';
+		   urlToGet +='&limit=1&api_key='+apiKey+'&jsonp=?';
+		   if(tumblr.sites[tumblrId].siteInfo){
+		      $.ajax({
+               url: urlToGet,            
+               success: function(data) { 
+                  var status = data.meta.status;
+                  if(status === 200){ 
+                     // if updated then update total posts in storage
+                     if(data.response.blog.updated !== tumblr.sites[tumblrId].siteInfo.updated){
+                        // updated time in human readable form
+                        tumblr.sites[tumblrId].siteInfo.updated = moment(moment.unix(data.response.blog.updated)._d).fromNow();  
+	                     tumblr.sites[tumblrId].siteInfo.totalPictures = data.response.total_posts;
+                        if(callback) callback(tumblrId);                        
+                     }                     
+                  }  
+               }               
+            }); 
+		   }else{
+		      return;
+		   }		   
+      }      
    }
    return tumblr;
 });

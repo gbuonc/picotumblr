@@ -52,7 +52,7 @@ function (  detailTpl,
          $btnFav.off('click'); // detach previous click events         
          if(isFav === -1){
             $btnFav.html('add').on('click', function(){
-               tabs.add(tumblrId, tumblr.sites[tumblrId], 'favs', function(){                 
+               tabs.add(tumblrId, 'favs', function(){                 
                   app.showMessage(tmpObj.id+' added to favs!');
                   detail.setAddRemoveBtn(tumblrId);                  
                });
