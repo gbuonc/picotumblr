@@ -33,7 +33,9 @@ define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom
       					tumblr.sites[tumblrId].siteInfo ={
 	                     title:data.response.blog.title,
 	                     //description:data.response.blog.description,
+	                     updateTime: data.response.blog.updated,
 	                     updated: moment(moment.unix(data.response.blog.updated)._d).fromNow(),
+	                     newPics:'',
 	                     totalPictures:data.response.total_posts,
 	                     avatar: 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/avatar/128' 
       	            }
@@ -90,11 +92,14 @@ define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom
                   var status = data.meta.status;
                   if(status === 200){ 
                      // if updated then update total posts in storage
-                     if(data.response.blog.updated !== tumblr.sites[tumblrId].siteInfo.updated){
+                     if(data.response.blog.updated !== tumblr.sites[tumblrId].siteInfo.updateTime){
                         // updated time in human readable form
-                        tumblr.sites[tumblrId].siteInfo.updated = moment(moment.unix(data.response.blog.updated)._d).fromNow();  
+                        tumblr.sites[tumblrId].siteInfo.updateTime = data.response.blog.updated;
+                        tumblr.sites[tumblrId].siteInfo.updated = moment(moment.unix(data.response.blog.updated)._d).fromNow(); 
+                        // show how many new pictures
+                        tumblr.sites[tumblrId].siteInfo.newItems = data.response.total_posts -tumblr.sites[tumblrId].siteInfo.totalPictures;
 	                     tumblr.sites[tumblrId].siteInfo.totalPictures = data.response.total_posts;
-                        if(callback) callback(tumblrId);                        
+                        console.log(tumblr.sites[tumblrId].siteInfo);                                          
                      }                     
                   }  
                }               

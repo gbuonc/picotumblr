@@ -67,7 +67,7 @@ function (  detailTpl,
             });
          }    
       },      
-      initSwipeView: function(tumblrId, totalPictures, startPage){   
+      initSwipeView: function(tumblrId, totalPictures, startPage){  
          var slides = tumblr.sites[tumblrId].pictures,
          startPage = parseInt(startPage, 10);         
          // destroy previews detailGalleries
@@ -83,7 +83,7 @@ function (  detailTpl,
    		// set topBar
          var topBar = new slideInMenu('topBar', false, 'top');
          topBar.close();  	
-         $handle.on('click', function(){           
+         $handle.on('click', function(){  
             topBar.toggle();
          });   
          
@@ -104,6 +104,13 @@ function (  detailTpl,
             captionSlide.update();
          },0);
          
+         // click to toggle topbar
+         $detailContent.on('click', '#swipeview-slider', function(){   
+            if(detailGallery.moved === false){
+                topBar.toggle();
+            }   
+         }); 
+
          // render on flip
          detailGallery.onFlip(function () {
             // can swipe all way to last picture

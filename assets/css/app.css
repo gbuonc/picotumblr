@@ -386,6 +386,30 @@ text-transform:uppercase;
 #hpTabs li.active button.disabled{
    display: none;
 }
+.newItems{
+position: absolute;
+display: block;
+background: 
+red;
+text-indent: 0;
+top: -2px;
+left: -2px;
+width: 20px;
+height: 20px;
+z-index: 100;
+padding: 3px;
+font-size: 13px;
+line-height: 16px;
+-webkit-border-radius: 30px;
+-webkit-box-shadow: 0 0 5px 
+#333;
+border: 1px solid 
+white;
+text-align: center;
+width: 16px;
+height: 16px;
+}
+
 /* Grid view
 ====================================================== */
 #grid{
@@ -481,23 +505,23 @@ text-transform:uppercase;
 	position:absolute;
 	z-index:4;
 	height:60px;
-	background:#333;
+	background:rgba(0,0,0,0.7);
 	left:0;
 	top:-60px;
 	width:100%;
 	-webkit-box-shadow: 0px 0px 8px #000;
 }
 #topBar .handle{
-   -webkit-transform: translate3d(0, 0, 0);
-   position:absolute;
-   height:15px;
-   bottom:-15px;
-   width:100%;
-   left:0;
-   background:rgba(0,0,0,0.7);
-   color:#fff;
-   font-size:14px;
-   border-bottom: 1px solid #fff;
+   /*-webkit-transform: translate3d(0, 0, 0);
+      position:absolute;
+      height:15px;
+      bottom:0px;
+      width:100%;
+      left:0;
+      background:rgba(0,0,0,0.7);
+      color:#fff;
+      font-size:14px;
+      border-bottom: 1px solid #fff;*/
 }
 #detailContent{
    height: 100%;

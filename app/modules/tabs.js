@@ -2,8 +2,9 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          '../../assets/js/handlebars', 
          '../../assets/js/iscroll', 
          '../../assets/js/lawnchair', 
-         'modules/app'], 
-   function(listTpl, handlebars, iScrl, lawnch, app){ 
+         'modules/app', 
+         'modules/tumblr'], 
+   function(listTpl, handlebars, iScrl, lawnch, app, tumblr){ 
    // handlebars template 
    var source = $(listTpl).html(),
    template = Handlebars.compile(source);         
@@ -127,7 +128,7 @@ define([ '../../assets/js/text!templates/hlist.tpl',
       },
       updateScrollable: function(){
          $.each(tabs.list, function(index, tab){
-            tabs.hpTabs[tab].scrollable.refresh();
+            tabs.hpTabs[tab].scrollable.refresh();           
          }) 
       },   
       updateHpList: function(tab){
@@ -139,11 +140,11 @@ define([ '../../assets/js/text!templates/hlist.tpl',
          var context ={            
             warning: tabs.hpTabs[tab].warning,
             listItem:app[tab].sites         
-         }              
+         }   
          tabs.hpTabs[tab].$hpList.html(template(context));
          setTimeout(function () {
             tabs.hpTabs[tab].scrollable.refresh(); 
-	      }, 0)  
+	      }, 0)	      
       },
       reset: function(tab){
          var confirmation = confirm(tabs.hpTabs[tab].confirmMsg);
