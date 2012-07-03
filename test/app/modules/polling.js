@@ -1,17 +1,16 @@
 // tumblr
-define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom, app, router) {
+define(['../assets/js/moment.js','modules/app'],function (mom, app) {
    var apiKey = 'XlCJ1kpxkFjgblfrnXXm6LE1hfYcmf56jaru6PynxidzEfFJVe';
-   var $hiddenPreload = $('#hiddenPreload');
    tumblr ={
       sites:{},
       getData: function(tumblrId, options, callback){      
          var config = {showErrors : true};
          $.extend(config, options);
    		// get current site		
-   		tumblrId = tumblrId || router.getRoute(0);
+   		tumblrId = tumblrId;
    		// create new empty object or add to existing one
-   		tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
-   		tumblr.sites[tumblrId].pictures = tumblr.sites[tumblrId].pictures ||[];
+   		//tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
+   		//tumblr.sites[tumblrId].pictures = tumblr.sites[tumblrId].pictures ||[];
    		var offset= tumblr.sites[tumblrId].pictures.length || 0;
          urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';
    		urlToGet +='offset='+offset+'&limit=20&api_key='+apiKey+'&jsonp=?';
@@ -22,7 +21,7 @@ define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom
                if(status === 200){
                   // --------------------------------
                   if(data.response.total_posts === 0){   
-                     app.hideLoadbar();
+                     //app.hideLoadbar();
                      if(config.showErrors){
                         app.errors.showAlert(app.errors.message.noPictures);
                      }                         

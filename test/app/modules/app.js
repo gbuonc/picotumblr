@@ -1,4 +1,6 @@
-define(['../../assets/js/lawnchair'], function(Lawnch){        
+define(
+   ['../../assets/js/lawnchair', 'modules/app', 'modules/polling'], 
+   function(Lawnch, app, polling){        
    // Array Remove - By John Resig (MIT Licensed)
    Array.prototype.remove = function(from, to) {
      var rest = this.slice((to || from) + 1 || this.length);
@@ -7,10 +9,9 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
    };
       
    var app = {
-      config:{         
+      config:{
          ppp: 20, // pics per page
-         buffer:80, // pics to preload
-         storageId: 'local'
+         buffer:80 // pics to preload
       },  
       history:{},
       favs:{}, 
@@ -29,48 +30,38 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       },
       // interface elements
       $mainApp: $('#mainApp'),
-      $loadbar: $('#loadbarWrapper'),
       
-      init: function(){     
-         // ***************************  
-         // show web layout for desktop debugging purpose
-         var ua = (navigator.userAgent.toLowerCase().match('ipod|iphone|android') ? 'mobile' : 'web');
-         if(ua === 'web'){
-            app.$mainApp.addClass('window');
-         }; 
-         // ***************************  
-         // detect if webapp is saved in home
-      	if(window.navigator.standalone){
-      		$('body').bind('touchmove', function(e){ 
-            	e.preventDefault();             
-         	});
-      	}else{
-      		window.scrollTo(0,0.9);
-      	}
+      init: function(){    
       	// init lawnchair
-         app.storage = Lawnchair({name:app.config.storageId}, function(){});  
+         app.storage = Lawnchair({name:'test'}, function(){});  
          // set initial database if doesn't already exits           
-         app.storage.get(app.config.storageId, function(obj){ 
+         app.storage.get("test", function(obj){ 
             if(obj === null){
-               var list = {
-                  history:[],
-                  favs:[],
-                  rels:[]          
-               }; 
-              app.storage.save({key:app.config.storageId, value:list}, function(){}); 
+               var sites = [];
+               // var list = {
+               //                   history:[],
+               //                   favs:[],
+               //                   rels:[]          
+               //                }; 
+              app.storage.save({key:app.config.storageId,value:sites}, function(){}); 
             }
-         });  
-      	//set start URL  
-      	require(["modules/routing"], function(router){            
-            router.init();  
-               if(router.getRoute() ==''){  
-               location.href='#/';  
-            };          
-         });   
-      	//Init tabs       
-      	require(['modules/tabs'], function(tabs){    
-      	   tabs.init();      	  
-      	});       	
+         }); 
+         var form = $('.searchForm'); 
+         // check submitted value
+         form.bind('submit', function(e){
+            var tumblrId = $(this).find('input').attr('value');
+            if (tumblrId === '') {
+               app.errors.showAlert(app.errors.message.empty);     
+            } else {           
+               //app.showLoadbar('mainApp');
+            	//tumblr.getData(tumblrId,{},function(){   	   
+            	   // location.href='#/'+tumblrId;
+            	   
+            	//}); 
+            	$('#mainWrap').append(tumblrId);
+            }
+            e.preventDefault(); 
+         }); 
       }, 
       showLoadbar: function(){         
          app.$loadbar.addClass('visible');

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tumblr Mobile Explorer</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />  
+	<link rel="stylesheet" type="text/css" href="assets/css/app.css">	
+	<link rel="stylesheet" type="text/css" href="assets/css/animations.css" >		
+	<script src="assets/js/require.js"></script>	
+   <link href="assets/gfx/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed">
+   <link href="assets/gfx/apple-touch-icon@2x.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+   <link href="assets/gfx/apple-touch-startup-image.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+   <link href="assets/gfx/apple-touch-startup-image@2x.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+</head>
+<body>
+	<div id="mainApp">	
+      <form action="#/" method="post" id="inputId" name="searchForm" class="searchForm">
+   	   <input type="text" name="tid" id="tid" value="" placeholder="tumblr id_" autocapitalize="off" onFocus="this.value=''">	
+   	   <button type="submit" class="btn">Search</button>	
+      </form>
+	</div>	
+	<script>	  
+	  require.config({baseUrl: "app"});
+	   require(['../assets/js/zepto'], function(){	      
+	      require(['modules/app'], function(app){
+            app.init();
+         });
+	   });
+   </script>
+</body>
+</html>
