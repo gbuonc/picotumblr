@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ************************************************
 CSS Default
 Author: Gianluca Buoncompagni - neo network
@@ -41,8 +42,59 @@ time, mark, audio, video {
     src: url('../fonts/League_Gothic-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
+
+/* Icons
+====================================================== */
+@font-face {
+  font-family: 'fontello';
+  src: url("../fonts/fontello.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"] span,
+[class*=" icon-"] span{
+ display: inline-block;
+ display: none;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: 'fontello';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  text-align: center;
+  opacity: 1;
+/* Uncomment for 3D effect */
+/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+/* fix buttons height */
+  line-height: 1em;
+/* you can be more comfortable with increased icons size */
+font-size: 100%;
+}
+
+.icon-hourglass:before { content: '\23f3'; } /* '⏳' */
+.icon-th-list:before { content: '\2630'; } /* '☰' */
+.icon-heart-empty-1:before { content: '\e801'; } /* '' */
+.icon-heart-1:before { content: '\e800'; } /* '' */
+.icon-th:before { content: '\268f'; } /* '⚏' */
+.icon-attention:before { content: '\26a0'; } /* '⚠' */
+.icon-cancel:before { content: '\2715'; } /* '✕' */
+.icon-help-circle:before { content: '\e704'; } /* '' */
+.icon-info-circle:before { content: '\e705'; } /* '' */
+.icon-trash:before { content: '\e729'; } /* '' */
+.icon-search:before { content: '🔍'; } /* '\1f50d' */
+.icon-lock-2:before { content: '\e804'; } /* '' */
+.icon-lock-open-2:before { content: '\e805'; } /* '' */
+.icon-link:before { content: '🔗'; } /* '\1f517' */
+
+/* custom for pin button */
+#pin:before{content: '\e805';}
+#pin.pinned:before{content: '\e804';}
 
 /*  COLORS
 background:  #2d2b29;
@@ -356,7 +408,7 @@ text-transform:uppercase;
    font-size: 15px;
    font-family: Helvetica, sans-serif;
    line-height: 1;
-   padding: 2px 4px;
+   padding: 5px 8px 5px 5px;
    font-weight: bold;
    margin: 0;
    /*background-color: #E93430;*/
@@ -623,10 +675,11 @@ line-height: 10px;
    height: 16px;
    bottom:7px;
    right:2px;
-   background:#ccc;
+   font-size: 150%;
+/*   background:#ccc;*/
 }
 #pin.pinned{
-   background:#0c0;
+/*   background:#0c0;*/
 }
 #captionContent{
 	position:static;

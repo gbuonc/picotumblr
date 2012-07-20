@@ -14,7 +14,7 @@ function (
       if (tumblrId === '') {
          app.errors.showAlert(app.errors.message.empty);     
       } 
-      else if(tumblrId.match(/db:/)){
+      else if(tumblrId.match(/db:/)){         
          // test:: set custom localstorage key via input field
          // change background color for visual feedback and reload
          app.config.storageId = tumblrId.slice(3);

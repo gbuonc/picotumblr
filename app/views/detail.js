@@ -51,14 +51,14 @@ function (  detailTpl,
          var isFav = temp.indexOf(tumblrId);   
          $btnFav.off('click'); // detach previous click events         
          if(isFav === -1){
-            $btnFav.html('add').on('click', function(){
+            $btnFav.removeClass('icon-heart-1').addClass('icon-heart-empty-1').html('<span>add</span>').on('click', function(){
                tabs.add(tumblrId, 'favs', function(){                 
                   app.showMessage(tmpObj.id+' added to favs!');
                   detail.setAddRemoveBtn(tumblrId);                  
                });
             });            
          }else{         
-            $btnFav.html('remove').on('click', function(){
+            $btnFav.removeClass('icon-heart-empty-1').addClass('icon-heart-1').html('<span>remove</span>').on('click', function(){
                tabs.remove(tumblrId, 'favs', function(){ 
                   tabs.updateHpList('favs');                                 
                   app.showMessage('This site has been removed from your favs!');

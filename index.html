@@ -24,31 +24,31 @@
 	            <h1>Tumblr Mobile Explorer</h1>	
 	            <form action="#/" method="post" id="inputId" name="searchForm" class="searchForm">
    				   <input type="text" name="tid" id="tid" value="" placeholder="tumblr id_" autocapitalize="off" onFocus="this.value=''">	
-   				   <button type="submit" class="btn">Search</button>	
+   				   <button type="submit" class="btn icon-search"><span>Search</span></button>	
    			   </form>
 	         </div>	         
 	         <div id="hpTabs">
 	            <ul>
 	               <li id="recentTab" class="active">
-	                  <button class="tabBtn">Recent</button>
+	                  <button class="tabBtn icon-th-list"><span>Recent</span></button>
 	                  <div id="history" class="hpList">
 	                     <div class="scrollWrapper"></div>
                      </div>
-                     <button class="btnClear">Clear Recent</button>
+                     <button class="btnClear icon-trash"><span>Clear</span></button>
 	               </li>
 	               <li id="favsTab">
-	                  <button class="tabBtn">Favs</button>
+	                  <button class="tabBtn icon-heart-1"><span>Favs</span></button>
 	                  <div id="favs" class="hpList">
 	                     <div class="scrollWrapper"></div> 	                    
                      </div>
-                     <button class="btnClear">Clear Favs</button>
+                     <button class="btnClear icon-trash"><span>Clear</span></button>
 	               </li>
 	               <li id="exploreTab">
-	                  <button class="tabBtn">Explore</button>
+	                  <button class="tabBtn icon-link"><span>Explore</span></button>
 	                  <div id="rels" class="hpList">
 	                     <div class="scrollWrapper"></div>
                      </div>
-                     <button class="btnClear">Clear Explore</button>
+                     <button class="btnClear icon-trash"><span>Clear</span></button>
 	               </li>
 	            </ul>	   	                        
 	         </div>	         
@@ -61,21 +61,21 @@
 		<!-- Detail view :::::::::::::::::::::::::::::: -->
 		<div id="detail" class="view">	
 			<div id="topBar">
-			   <button class="btnBack">Back</button>
-			   <button class="btnFav">Add</button>
+			   <button class="btnBack icon-th"><span>Back</span></button>
+			   <button class="btnFav icon-heart-empty-1"><span>Add</span></button>
 				<div class="handle"></div>
 			</div>		
 		   <div class="content" id="detailContent"></div>
 		   <div id="detailCaption">
 		   	<div class="handle">&bull;&nbsp;&bull;&nbsp;&bull;</div>
-		   	<span id="pin" class='pinned'></span>			
+		   	<span id="pin" class='pinned icon-lock-2'></span>			
 		   	<div id="captionContent" class="overthrow"><div></div></div>
 		   	<div id="tmblButtons"></div>
 		   </div> 
 		</div>
 		<!-- loading :::::::::::::::::::::::::::::: -->
 		<div id="loadbarWrapper">
-		   <div class="loadbar">LOADING</div>		   
+		   <div class="loadbar icon-hourglass"><span>LOADING</span></div>		   
 		</div>
 	</div>	
 	<script>	  
