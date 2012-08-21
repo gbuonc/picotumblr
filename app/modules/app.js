@@ -9,7 +9,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
    var app = {
       config:{         
          ppp: 20, // pics per page
-         buffer:4*config.ppp, // pics to preload
+         buffer:80, // pics to preload
          storageId: 'local'
       },  
       history:{},
