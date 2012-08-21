@@ -9,7 +9,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
    var app = {
       config:{         
          ppp: 20, // pics per page
-         buffer:80, // pics to preload
+         buffer:4*config.ppp, // pics to preload
          storageId: 'local'
       },  
       history:{},
@@ -45,7 +45,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             	e.preventDefault();             
          	});
       	}else{
-      		window.scrollTo(0,0.9);
+      		window.scrollTo(0,1);
       	}
       	// init lawnchair
          app.storage = Lawnchair({name:app.config.storageId}, function(){});  
