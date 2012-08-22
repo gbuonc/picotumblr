@@ -45,6 +45,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             	e.preventDefault();             
          	});
       	}else{
+      	   $('body').addClass('browser');
       		window.scrollTo(0,1);
       	}
       	// init lawnchair

@@ -135,6 +135,11 @@ body #mainApp.window{
    border: 4px solid #ddd;   
    overflow: hidden;
 }
+/* view in browser, not home screen */
+body.browser{
+   background-color: #363546;
+   
+}
 
 /* main views */
 #mainApp > div {
@@ -692,4 +697,25 @@ line-height: 10px;
 }
 #captionContent p, #captionContent blockquote{
 	margin:0;
+}
+
+/* Media Queries
+====================================================== */
+/* Landscape */
+@media screen and (orientation:landscape) {
+   body.browser{
+      min-height: 268px;  /* viewport 208px + 60px navigation bar */      
+   }
+   #topSearch{
+      margin-top: 10px;
+   }
+}
+/* portrait */
+@media screen and (orientation:portrait) {
+   body.browser{
+      min-height: 416px;  /* viewport 356px + 60px navigation bar */      
+   }
+   #topSearch{
+      margin-top: 10px;
+   }
 }
