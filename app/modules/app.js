@@ -12,6 +12,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          buffer:80, // pics to preload
          storageId: 'local'
       },  
+      orientation :'portrait',
       history:{},
       favs:{}, 
       rels:{},            
@@ -39,15 +40,28 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             app.$mainApp.addClass('window');
          }; 
          // ***************************  
+         // detect orientation
+         app.checkDeviceOrientation();
+         if(typeof window.onorientationchange != 'undefined'){            
+   		   window.addEventListener("orientationchange", function() {  
+   		      // hide safari navbar
+      		   window.scrollTo(0,1);  
+               if (Math.abs(window.orientation) == 0 || 90 || 180) {     
+                  checkDeviceOrientation();                                         
+      			}       					
+            }, false);
+      	}
+         
          // detect if webapp is saved in home
       	if(window.navigator.standalone){
       		$('body').bind('touchmove', function(e){ 
             	e.preventDefault();             
          	});
       	}else{
-      	   $('body').addClass('browser');
+      	   app.$mainApp.addClass('browser');
+      	   // hide safari navbar
       		window.scrollTo(0,1);
-      	}
+      	}	
       	// init lawnchair
          app.storage = Lawnchair({name:app.config.storageId}, function(){});  
          // set initial database if doesn't already exits           
@@ -73,6 +87,13 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       	   tabs.init();      	  
       	});       	
       }, 
+      checkDeviceOrientation: function(){
+         if(typeof window.onorientationchange != 'undefined'){
+            var deviceOrientation = Math.abs(window.orientation);
+            // set orientation value
+            app.orientation = deviceOrientation == 90 ? 'landscape' : 'portrait';
+         }
+      },
       showLoadbar: function(){         
          app.$loadbar.addClass('visible');
       },

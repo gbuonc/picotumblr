@@ -127,18 +127,17 @@ a{
    top:0;
    left:0; 
 }
-body #mainApp.window{
+#mainApp.window{
    position: relative;
-   width: 320px;
-   height: 480px;
+   width: 480px;
+   height: 320px;
    margin:10px auto;
    border: 4px solid #ddd;   
    overflow: hidden;
 }
 /* view in browser, not home screen */
-body.browser{
-   background-color: #363546;
-   
+body #mainApp.browser{
+   padding-bottom: 60px;
 }
 
 /* main views */
@@ -473,6 +472,9 @@ height: 16px;
    overflow-y: auto;
    height:100%;
 }
+.window #grid{
+   overflow-y: hidden;
+}
 #gridContent{
    position: relative;
    height: 396px;
@@ -534,9 +536,11 @@ height: 16px;
 /*   margin-top:60px;*/
 }
 .thumbnails a{
-   -webkit-transition: all 500ms linear;
+   -webkit-transition: all 300ms linear;
    background-size:cover;
    background-position: 50%; 
+   background-repeat: no-repeat;
+   background-color: #000;
 	display:inline-block;
 	float: left;
 	margin:2px;
@@ -702,20 +706,15 @@ line-height: 10px;
 /* Media Queries
 ====================================================== */
 /* Landscape */
-@media screen and (orientation:landscape) {
-   body.browser{
-      min-height: 268px;  /* viewport 208px + 60px navigation bar */      
-   }
+@media screen and (orientation:landscape) {   
    #topSearch{
       margin-top: 10px;
    }
+   .thumbnails a{   
+   	width:90px;
+   }   
 }
 /* portrait */
 @media screen and (orientation:portrait) {
-   body.browser{
-      min-height: 416px;  /* viewport 356px + 60px navigation bar */      
-   }
-   #topSearch{
-      margin-top: 10px;
-   }
+
 }

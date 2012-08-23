@@ -36,7 +36,14 @@ define([
    
    var grid = {
       init: function (tumblrId) {
-         app.current.reset(tumblrId); 
+         app.current.reset(tumblrId);   
+         // set grid size on rotate
+         if(typeof window.onorientationchange != 'undefined'){
+   		   window.addEventListener("orientationchange", function() {   		      		      
+               app.checkDeviceOrientation();
+               grid.setGridSize(app.orientation);                    
+            }, false);
+   	   }       
          // show loadbar (just in case)
          app.showLoadbar('mainApp');           
          tumblr.getData(tumblrId,{},function () {
@@ -54,15 +61,28 @@ define([
                tumblr.sites[tumblrId].siteInfo.overflow='overflow:hidden';
             }           
             // ------------------------------------------------------
-            page.html(template(tumblr.sites[tumblrId].siteInfo));                         
+            page.html(template(tumblr.sites[tumblrId].siteInfo)); 
+            // set grid dimension to adjust for different orientations
+            grid.setGridSize(app.orientation);                        
             // buffer pics or init swipe
             if (tumblr.sites[tumblrId].pictures.length < picsToLoad) {
                grid.loadPictures(tumblrId);
             } else {               
-               grid.initSwipeView(tumblrId);
+              grid.initSwipeView(tumblrId);
             }
          });
-      },      
+      },
+      setGridSize: function(orientation){           
+         var h = app.$mainApp.height() - 62;      
+         // set thumbnail height to accomodate 4 or file lines with 2px margin depending on orientation
+         var lines = (orientation && orientation === 'landscape') ? 4 : 5;
+         grid.thumbHeight = Math.floor((h/lines)-4);
+         $('#gridContent').css({'height': h+'px'});
+         $('.thumbnails a').css({'height': grid.thumbHeight+'px'});
+         if(grid.gallery){
+            grid.gallery.refreshSize();
+         }           
+      },    
       loadPictures: function (tumblrId) {
          tumblr.getData(tumblrId,{}, function () {
             if (tumblr.sites[tumblrId].pictures.length < picsToLoad) {
@@ -124,7 +144,7 @@ define([
                      lastPic=parseInt((upcoming*ppp)+ppp, 10);                                                
                      for (var i=firstPic; i<lastPic; i++) {
                         if(pictures[i]){
-                           ret = ret + '<a href="#/' + tumblrId + '/' + i + '" style="background-image:url('+pictures[i].thumb+')"></a>';
+                           ret = ret + '<a href="#/' + tumblrId + '/' + i + '" style="background-image:url('+pictures[i].thumb+'); height:'+grid.thumbHeight+'px; width:'+grid.thumbWidth+'px"></a>';
                         }                  
                      }
                   return ret;
