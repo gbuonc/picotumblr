@@ -31,14 +31,13 @@ define([
          }
       },
       '/:tumblrId': {  
-         before: function(tumblrId){
+         before: function(tumblrId){             
             if(app.current.tumblrId === tumblrId){ 
-                  // if site already loaded simply switch back and change current page view without reinitialising     
                   app.hideLoadbar();
-                  gridView.gotoPage(app.current.gridPage, tumblrId);                      
+                  //gridView.gotoPage(app.current.gridPage, tumblrId);  
+                  gridView.init(tumblrId, app.current.gridPage);                      
             }else{
-               // if new site reinitialise gallery   
-               $grid.html('');               
+               $grid.html('');
                gridView.init(tumblrId);                
             } 
          },

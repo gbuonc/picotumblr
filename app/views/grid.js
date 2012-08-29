@@ -35,8 +35,11 @@ define([
    }); 
    
    var grid = {
-      init: function (tumblrId) {
-         app.current.reset(tumblrId);   
+      init: function (tumblrId, currPage) {
+         // init is always called on page load to handle device orientation problems
+         app.current.reset(tumblrId);  
+         // set first or current active page
+         app.current.gridPage = currPage ? currPage : 0;        
          // set grid size on rotate
          if(typeof window.onorientationchange != 'undefined'){
    		   window.addEventListener("orientationchange", function() {   		      		      
@@ -71,7 +74,7 @@ define([
               grid.initSwipeView(tumblrId);
             }
          });
-      },
+      },      
       setGridSize: function(orientation){           
          var h = app.$mainApp.height() - 62;      
          // set thumbnail height to accomodate 4 or file lines with 2px margin depending on orientation
@@ -114,9 +117,9 @@ define([
          // show header info
          $('#headerInfo').addClass('loaded');
          
-         // go to initial page (wait for headerInfo animation to end)
-         var go = window.setTimeout(function(){
-           grid.gotoPage(0, tumblrId); 
+         // go to current initial page (wait for headerInfo animation to end)
+         var go = window.setTimeout(function(){         
+           grid.gotoPage(app.current.gridPage, tumblrId); 
            window.clearTimeout(go);
          }, 400);
          // render on flip

@@ -11,7 +11,7 @@
       
       <a href="#/{{this.id}}">
       <img src="http://api.tumblr.com/v2/blog/{{this.id}}.tumblr.com/avatar/64" style="width:100%; height:auto" />
-      <h2>{{{this.title}}} <span class="pics">{{{this.tp}}} pics - updated {{{updated}}}</span></h2>
+      <h2>{{{this.title}}} <span class="pics">{{{this.tp}}} pics <!-- - updated {{{updated}}} --></span></h2>
       </a>    
       <button data-target="{{this.id}}" class="icon-cancel"><span>X</span></button>    			            
    </li>      

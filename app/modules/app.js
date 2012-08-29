@@ -47,7 +47,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
    		      // hide safari navbar
       		   window.scrollTo(0,1);  
                if (Math.abs(window.orientation) == 0 || 90 || 180) {     
-                  checkDeviceOrientation();                                         
+                  app.checkDeviceOrientation();                                         
       			}       					
             }, false);
       	}
