@@ -59,15 +59,15 @@ var SwipeView = (function(){
 			this.slider.removeEventListener('webkitTransitionEnd', this, false);
 		},
 
-		refreshSize: function () {
+		refreshSize: function () {	
 			this.wrapperSize = this.options.vertical ? this.wrapper.clientHeight : this.wrapper.clientWidth;
-			this.pageSize = this.wrapperSize;
-			this.maxPos = -this.options.numberOfPages * this.pageSize + this.wrapperSize;
-			this.snapThreshold = this.options.snapThreshold === null
-				? Math.round(this.pageSize * .15)
-				: /%/.test(this.options.snapThreshold)
-					? Math.round(this.pageSize * this.options.snapThreshold.replace('%', '') / 100)
-					: this.options.snapThreshold;
+		   this.pageSize = this.wrapperSize;
+		   this.maxPos = -this.options.numberOfPages * this.pageSize + this.wrapperSize;
+		   this.snapThreshold = this.options.snapThreshold === null
+			? Math.round(this.pageSize * .15)
+			: /%/.test(this.options.snapThreshold)
+				? Math.round(this.pageSize * this.options.snapThreshold.replace('%', '') / 100)
+				: this.options.snapThreshold;
 		},
 		
 		updatePageCount: function (n) {
@@ -76,6 +76,7 @@ var SwipeView = (function(){
 		},
 		
 		goToPage: function (p) {
+		   this.refreshSize();
 			if( this.options.dynamic ) {
 				this.masterPages[this.currentMasterPage].className = this.masterPages[this.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
 				for (var i=0; i<3; i++) {

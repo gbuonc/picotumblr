@@ -82,9 +82,9 @@ define([
          grid.thumbHeight = Math.floor((h/lines)-4);
          $('#gridContent').css({'height': h+'px'});
          $('.thumbnails a').css({'height': grid.thumbHeight+'px'});
-         if(grid.gallery){
-            grid.gallery.refreshSize();
-         }           
+         // if(grid.gallery){
+                 //             grid.gallery.refreshSize();
+                 //          }           
       },    
       loadPictures: function (tumblrId) {
          tumblr.getData(tumblrId,{}, function () {

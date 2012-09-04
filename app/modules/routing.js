@@ -34,8 +34,8 @@ define([
          before: function(tumblrId){             
             if(app.current.tumblrId === tumblrId){ 
                   app.hideLoadbar();
-                  //gridView.gotoPage(app.current.gridPage, tumblrId);  
-                  gridView.init(tumblrId, app.current.gridPage);                      
+                  gridView.gotoPage(app.current.gridPage, tumblrId);  
+                  //gridView.init(tumblrId, app.current.gridPage);                      
             }else{
                $grid.html('');
                gridView.init(tumblrId);                

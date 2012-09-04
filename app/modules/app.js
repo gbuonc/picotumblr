@@ -31,6 +31,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       // interface elements
       $mainApp: $('#mainApp'),
       $loadbar: $('#loadbarWrapper'),
+      $hpCover: $('#homeCover'),
       
       init: function(){     
          // ***************************  
@@ -50,8 +51,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
                   app.checkDeviceOrientation();                                         
       			}       					
             }, false);
-      	}
-         
+      	}         
          // detect if webapp is saved in home
       	if(window.navigator.standalone){
       		$('body').bind('touchmove', function(e){ 
@@ -84,7 +84,9 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          });   
       	//Init tabs       
       	require(['modules/tabs'], function(tabs){    
-      	   tabs.init();      	  
+      	   tabs.init();   
+      	   // hide preload cover
+      	   app.hideCover();      
       	});       	
       }, 
       checkDeviceOrientation: function(){
@@ -99,7 +101,12 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       },
       hideLoadbar: function(){
          app.$loadbar.removeClass('visible');
-      },      
+      },   
+      hideCover: function(){
+         app.$hpCover.addClass('anim fade out').bind('webkitAnimationEnd', function(){
+            $(this).hide();            
+         }); 
+      },   
       errors:{
          showAlert: function(desc){
            alert(desc);         
