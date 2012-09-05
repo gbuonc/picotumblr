@@ -252,6 +252,7 @@ button{
    height:100%; 
    background: #000 ;/* url(../gfx/apple-touch-startup-image@2x.png) top left no-repeat; */
    background-size:cover;
+   z-index: 5;
 }
 #homeCover .loadbar{
    position:absolute; 
@@ -273,11 +274,16 @@ button{
    margin-bottom: 10%;
 }
 #home h1{
-line-height:.8;
-position:relative;
-margin-bottom:15px;
+line-height:1;
 position:relative;
 font-size: 24px;
+text-transform:uppercase;
+}
+#home h2{
+line-height:.8;
+position:relative;
+margin-bottom:10px;
+font-size: 15px;
 text-transform:uppercase;
 }
 #inputId button{
