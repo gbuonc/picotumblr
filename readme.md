@@ -1,2 +1,2 @@
 # Pics-O-Tumblr
-Mobile Photo Viewer
+Mobile Picture Viewer
