@@ -1,7 +1,7 @@
 ({
     appDir: "./",
     baseUrl: "app",
-    dir: "../tme-build",
+    dir: "../TME-pages/TME/build",
     optimizeCss: "standard",
     inlineText: true,
     removeCombined: true,
