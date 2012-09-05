@@ -1,0 +1,14 @@
+/**
+ * 
+ * Find more about the slide down menu at
+ * http://cubiq.org/slide-in-menu
+ *
+ * Copyright (c) 2010 Matteo Spinelli, http://cubiq.org/
+ * Released under MIT license
+ * http://cubiq.org/dropbox/mit-license.txt
+ * 
+ * Version 0.1beta1 - Last updated: 2010.05.28
+ * 
+ */
+
+function slideInMenu(e,t,n){this.container=document.getElementById(e),this.handle=this.container.querySelector(".handle"),this.openedPosition=this.container.clientHeight,this.container.style.opacity="1",this.container.style[n]="-"+this.openedPosition+"px",this.container.posix=n,this.container.style.webkitTransitionProperty="-webkit-transform",this.container.style.webkitTransitionDuration="300ms",t===!0&&this.open(),this.handle.addEventListener("touchstart",this)}slideInMenu.prototype={pos:0,opened:!1,handleEvent:function(e){switch(e.type){case"touchstart":this.touchStart(e);break;case"touchmove":this.touchMove(e);break;case"touchend":this.touchEnd(e)}},setPosition:function(e,t){this.openedPosition=this.container.clientHeight,this.pos=e,this.anim=t,this.container.style.webkitTransitionProperty=t===!0?"-webkit-transform":"none",this.container.posix=="bottom"?this.container.style.webkitTransform="translate3d(0, -"+e+"px,0)":this.container.style.webkitTransform="translate3d(0,"+e+"px,0)",this.pos===this.openedPosition?this.opened=!0:this.pos===0&&(this.opened=!1)},touchStart:function(e){e.preventDefault(),e.stopPropagation(),this.container.style.webkitTransitionDuration="0",this.startPos=this.pos,this.startDelta=e.touches[0].pageY-this.pos,this.handle.addEventListener("touchmove",this),this.handle.addEventListener("touchend",this)},touchMove:function(e){this.openedPosition=this.container.clientHeight;var t=e.touches[0].pageY-this.startDelta;t<0?t=0:t>this.openedPosition&&(t=this.openedPosition),this.setPosition(t,!0)},touchEnd:function(e){this.openedPosition=this.container.clientHeight;var t=this.pos-this.startPos;t*=t<0?-1:1,t>3?(this.container.style.webkitTransitionDuration="200ms",this.pos==this.openedPosition||!this.opened?this.setPosition(this.pos>this.openedPosition/3?this.openedPosition:0,!0):this.setPosition(this.pos>this.openedPosition?this.openedPosition:0,!0)):(this.container.style.webkitTransitionDuration="400ms",this.setPosition(this.opened?0:this.openedPosition,!0)),this.handle.removeEventListener("touchmove",this),this.handle.removeEventListener("touchend",this)},open:function(){this.openedPosition=this.container.clientHeight,this.setPosition(this.openedPosition,!0)},close:function(){this.setPosition(0,!0)},closeWithoutAnimation:function(){this.setPosition(0,!1)},toggle:function(){this.opened?this.close():this.open()}}
