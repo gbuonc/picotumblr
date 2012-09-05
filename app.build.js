@@ -1,10 +1,11 @@
 ({
     appDir: "./",
     baseUrl: "app",
-    dir: "../TME-pages/TME/build",
+    dir: "../tme-build",
     optimizeCss: "standard",
     inlineText: true,
     removeCombined: true,
+    fileExclusionRegExp: /^\./,
     modules: [
       {
          name: "modules/app"       
