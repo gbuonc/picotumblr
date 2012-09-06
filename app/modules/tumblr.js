@@ -10,16 +10,19 @@ define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom
    		// get current site		
    		tumblrId = tumblrId || router.getRoute(0);
    		// create new empty object or add to existing one
-   		tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
+   		
+		   tumblr.sites[tumblrId]=tumblr.sites[tumblrId] ||{};
    		tumblr.sites[tumblrId].pictures = tumblr.sites[tumblrId].pictures ||[];
    		var offset= tumblr.sites[tumblrId].pictures.length || 0;
-         urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';
+         urlToGet = 'http://api.tumblr.com/v2/blog/'+tumblrId+'.tumblr.com/posts/photo?';                    
    		urlToGet +='offset='+offset+'&limit=20&api_key='+apiKey+'&jsonp=?';
+
         	$.ajax({
            url: urlToGet,            
            success: function(data) { 
                var status = data.meta.status;
                if(status === 200){
+                  
                   // --------------------------------
                   if(data.response.total_posts === 0){   
                      app.hideLoadbar();
@@ -58,7 +61,7 @@ define(['../assets/js/moment.js','modules/app', 'modules/routing'],function (mom
          				}					
       				} 		
    				   if(callback) callback(tumblrId);   				   
-                 // ----------------------------------          
+                 // ----------------------------------   
                }else{     
                   if(config.showErrors){
                      if(app.errors.message[status]){

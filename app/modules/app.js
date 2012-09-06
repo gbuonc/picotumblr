@@ -37,9 +37,9 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          // ***************************  
          // show web layout for desktop debugging purpose
          var ua = (navigator.userAgent.toLowerCase().match('ipod|iphone|android') ? 'mobile' : 'web');
-         if(ua === 'web'){
-            app.$mainApp.addClass('window');
-         }; 
+         //          if(ua === 'web'){
+         //             app.$mainApp.addClass('window');
+         //          }; 
          // ***************************  
          // detect orientation
          app.checkDeviceOrientation();
@@ -58,7 +58,9 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             	e.preventDefault();             
          	});
       	}else{
-      	   app.$mainApp.addClass('browser');
+      	   if(ua !== 'web'){
+      	      app.$mainApp.addClass('browser');
+      	   };       	   
       	   // hide safari navbar
       		window.scrollTo(0,1);
       	}	

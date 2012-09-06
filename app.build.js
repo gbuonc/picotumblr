@@ -5,7 +5,7 @@
     optimizeCss: "standard",
     inlineText: true,
     removeCombined: true,
-    fileExclusionRegExp: /^\./,
+    fileExclusionRegExp: /^\.|app.build\.js/,
     modules: [
       {
          name: "modules/app"       

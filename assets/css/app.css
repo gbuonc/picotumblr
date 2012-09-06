@@ -87,10 +87,10 @@ font-size: 100%;
 .icon-help-circle:before { content: '\e704'; } /* '' */
 .icon-info-circle:before { content: '\e705'; } /* '' */
 .icon-trash:before { content: '\e729'; } /* '' */
-.icon-search:before { content: '🔍'; } /* '\1f50d' */
+.icon-search:before { content: '\1f50d'; } /* '' */
 .icon-lock-2:before { content: '\e804'; } /* '' */
 .icon-lock-open-2:before { content: '\e805'; } /* '' */
-.icon-link:before { content: '🔗'; } /* '\1f517' */
+.icon-link:before { content: '\1f517'; } /* '\1f517' */
 
 /* custom for pin button */
 #pin:before{content: '\e805';}
@@ -112,7 +112,7 @@ light: #494744; */
 html, body{	
    font-family: 'LeagueGothicRegular', Helvetica, sans-serif;
 	font-size:14px;
-	background: #2d2b29;
+	background: #030303;
 	color:#fff;
 }
 a{
@@ -126,6 +126,7 @@ a{
    height: 100%;
    top:0;
    left:0; 
+   overflow: hidden;
 }
 #mainApp.window{
    position: relative;
@@ -273,18 +274,22 @@ button{
    margin-top: 60px;
    margin-bottom: 10%;
 }
-#home h1{
+#home #topSearch h1{
 line-height:1;
 position:relative;
-font-size: 24px;
+font-size: 38px;
 text-transform:uppercase;
+display: inline-block;
 }
-#home h2{
-line-height:.8;
+#home #topSearch h2{
+line-height:38px;
 position:relative;
-margin-bottom:10px;
-font-size: 15px;
+/*margin-bottom:10px;*/
+font-size: 16px;
+top:-15px;
+margin-left: 6px;
 text-transform:uppercase;
+display: inline-block;
 }
 #inputId button{
    display: inline-block;
