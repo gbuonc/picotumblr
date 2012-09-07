@@ -13,7 +13,8 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
          storageId: 'local'
       },  
       orientation :'portrait',
-      history:{},
+      isMobile : /ip(hone|od|ad)|android|blackberry.*applewebkit/i.test(navigator.userAgent),
+      history:{},      
       favs:{}, 
       rels:{},            
       current:{
@@ -33,14 +34,7 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
       $loadbar: $('#loadbarWrapper'),
       $hpCover: $('#homeCover'),
       
-      init: function(){     
-         // ***************************  
-         // show web layout for desktop debugging purpose
-         var ua = (navigator.userAgent.toLowerCase().match('ipod|iphone|android') ? 'mobile' : 'web');
-         //          if(ua === 'web'){
-         //             app.$mainApp.addClass('window');
-         //          }; 
-         // ***************************  
+      init: function(){    
          // detect orientation
          app.checkDeviceOrientation();
          if(typeof window.onorientationchange != 'undefined'){            
@@ -58,9 +52,9 @@ define(['../../assets/js/lawnchair'], function(Lawnch){
             	e.preventDefault();             
          	});
       	}else{
-      	   if(ua !== 'web'){
+      	   if(app.isMobile){
       	      app.$mainApp.addClass('browser');
-      	   };       	   
+      	   }   	   
       	   // hide safari navbar
       		window.scrollTo(0,1);
       	}	
